@@ -12,12 +12,15 @@
 "We chose a narrow reporting problem for Alphonso orchard teams: turning a suspicious leaf or fruit into an inspection request with enough evidence. Our hypothesis is that guided follow-up reduces missing context. Hapus Scout helps the worker document the issue and gives the manager a brief to verify."
 
 ## 0:50-2:30 — New report
+Use the **New inspection** tab and **Analyze inspection** button.
 Upload a permitted image, use a fictional tree ID, describe what you see. Submit live. Explain that the image and text go to Qwen running in the same Colab runtime as the interface. Report real elapsed time; avoid claiming a target latency as measured performance.
 
 ## 2:30-4:00 — Follow-up
+Expand **Add evidence or retry analysis** beneath the inspection brief to enter answers.
 Read the actual generated questions. Answer with explicitly hypothetical demo context. Re-analyze. Point to what changed and what remained uncertain. If the model fails, show the preserved report and honest retry status.
 
 ## 4:00-5:10 — Manager handoff
+Use the **Case library** tab, choose a case and select **Open case**. **Mark as reviewed** is below its photo.
 Open the case list, photo, latest brief and revision history. Mark the case reviewed. Explain that this records review, not confirmed diagnosis.
 
 ## 5:10-6:15 — Different / insufficient evidence

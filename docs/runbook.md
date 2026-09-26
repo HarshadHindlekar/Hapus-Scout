@@ -1,6 +1,7 @@
 # Colab runbook
 
 ## Normal start
+Interface updates require restarting the app: stop the running launcher cell and rerun it in the same Colab runtime. It pulls the latest repository; existing downloaded weights and session case files remain on disk. Use the newly printed public URL and login, which may change. Refreshing the old Gradio page alone does not load new Python UI code.
 Open the repository notebook, choose a GPU, run its single cell, approve Drive mount, wait for model load, then open the Gradio URL using the printed temporary login. Select the Google account that owns the model or has a My Drive shortcut to it.
 
 The launcher first checks the existing layout `MyDrive/Hapus More AI/models/model-00001-of-00002.safetensors`. Despite the suffix, this is a folder containing both weight shards and config.json. If absent, automatic discovery searches My Drive. The similarly named Qwen3-VL-4B-Instruct folder was empty in the inspected Drive view.

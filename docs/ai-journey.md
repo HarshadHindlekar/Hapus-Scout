@@ -1,5 +1,11 @@
 # Hapus Scout AI journey
 
+## 2026-09-26 — Interface redesign
+
+Founder screenshots showed inconsistent dark/light panels, oversized branding and bright field-label backgrounds. Replaced the default styling with a consistent cream, forest-green and white workspace using local Arial fonts. Added a compact header, numbered workflow, inspection panels, clear empty states, collapsed follow-up controls and a two-column case library. The temporary-storage notice remains visible. Updated both light/dark theme variables to preserve contrast regardless of browser preference. Browser review included desktop and 390px mobile layouts; workflow tests and the HTTP smoke check still pass.
+
+The user's Colab screenshot now confirms Qwen loaded on a Tesla T4 and a public Gradio URL was created. Real-image analysis quality remains unverified.
+
 ## 2026-09-26 — Visible startup diagnostics
 
 An active Colab session showed only the parent launcher's "Model found" line. Replaced inherited subprocess output with explicit stdout/stderr streaming through notebook stdout, unbuffered child Python, staged GPU-loading messages and a 30-second process-alive message. This resolves a diagnostics gap; it does not establish why the user's current startup is slow or why Drive authentication failed. Added tests for forwarding both streams and propagating process failures.
