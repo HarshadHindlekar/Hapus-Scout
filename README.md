@@ -15,6 +15,8 @@ An orchard inspection assistant for Alphonso mango teams. A worker submits a pho
 
 Set the cell's `MODEL_PATH` if automatic discovery finds zero or multiple copies. A Drive web folder URL is not a mounted filesystem path. Shared folders may need a shortcut in My Drive. Startup can take several minutes, especially while loading weights from Drive.
 
+**Drive authentication failing?** Set `USE_DRIVE = False` in the launcher. It skips Drive entirely, downloads the same public Qwen model into Colab, and stores cases in `/content/HapusScout/cases`. No Drive permissions or model API key are needed in this mode. The first download takes time, and model files/cases are lost when the runtime is deleted. The interface displays this limitation. Drive mode remains the default.
+
 **Status:** Application and launcher implemented. See [validation](docs/validation.md) for actual checks and remaining live Colab verification. Do not describe untested inference as a working demonstrated result.
 
 ## Workflow

@@ -1,5 +1,7 @@
 # Validation record
 
+Drive-free recovery: all eight tests passed, including two checks verifying that temporary mode skips google.colab authentication and sets temporary storage, while Drive authentication failures stop before installation/model work. Launcher syntax and Ruff checks passed. Actual public-model download and GPU inference remain pending.
+
 ## Automated checks
 - Six workflow tests passed on 2026-09-26 using explicit test doubles, not real inference.
 - Tests cover evidence preservation on outage/restart, follow-up context/history, review/reopen, failed retry retaining prior results, malformed/unrecognized reference rejection, path traversal and incomplete model weights.

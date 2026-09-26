@@ -86,6 +86,8 @@ def build_app(service):
     with gr.Blocks(title="Hapus Scout", theme=gr.themes.Soft(primary_hue="green", secondary_hue="amber"), css=CSS) as demo:
         gr.HTML('<div id="hero"><p class="eyebrow">HAPUS & MORE · DAY 1 PROTOTYPE</p><h1>Hapus Scout</h1><p>A clearer orchard report. A better next inspection.</p></div>')
         gr.Markdown("**Photo → AI observations → follow-up → manager review**  \nUse your own or permitted photos and fictional tree IDs. This shared demo has one team workspace.")
+        if os.environ.get("SCOUT_STORAGE_MODE") == "temporary":
+            gr.Markdown("**Temporary session storage:** Google Drive is disconnected. Model files and saved cases will be lost when this Colab runtime is deleted.")
         with gr.Tab("Report & inspect"):
             current = gr.State("")
             with gr.Row():

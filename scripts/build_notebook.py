@@ -4,6 +4,7 @@ from pathlib import Path
 
 root = Path(__file__).resolve().parents[1]
 source = '''# Select Runtime > Change runtime type > T4 GPU before running.
+USE_DRIVE = True  # Set False if Google Drive authorization fails; cases become temporary.
 MODEL_PATH = ""  # Optional: exact /content/drive/MyDrive/... model folder
 
 import subprocess, sys
@@ -14,8 +15,8 @@ if not (repo / ".git").exists():
 else:
     subprocess.run(["git", "-C", str(repo), "pull", "--ff-only"], check=True)
 sys.path.insert(0, str(repo))
-from scripts.colab_bootstrap import launch
-launch(MODEL_PATH)
+import runpy
+runpy.run_path(str(repo / "scripts/colab_bootstrap.py"))["launch"](MODEL_PATH, use_drive=USE_DRIVE)
 '''
 notebook = {
     "nbformat": 4, "nbformat_minor": 5,
@@ -28,6 +29,7 @@ notebook = {
             "3. Open the printed Gradio link and sign in with the temporary login.\n\n",
             "Keep the cell running. Cases are saved in MyDrive/HapusScout/cases. Use only permitted demo images.\n",
             "If automatic discovery finds zero or multiple models, enter the exact mounted folder in MODEL_PATH.\n",
+            "If Drive authorization fails, set USE_DRIVE = False. This downloads Qwen into Colab; model files and cases are temporary and disappear when the runtime is deleted.\n",
             "Inspection support only; live model quality must be verified.\n"]},
         {"id": "launch", "cell_type": "code", "metadata": {}, "execution_count": None, "outputs": [],
          "source": source.splitlines(keepends=True)}]}

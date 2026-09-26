@@ -1,6 +1,7 @@
 # Seven-minute demo and three-minute Q&A
 
 ## Before judging
+- If using `USE_DRIVE = False`, disclose that weights were downloaded from the public model repository and cases use temporary Colab storage. The draft slide describes the default Drive mode; explain this operational difference during the demo.
 - Complete docs/validation.md live checks; load the model before the slot.
 - Use your own or explicitly permitted photos; keep a rights note for each.
 - Choose one clear plant photo, a different photo and one unclear/non-plant photo. Do not predetermine their AI outputs.

@@ -1,5 +1,9 @@
 # Hapus Scout AI journey
 
+## 2026-09-26 — Drive authentication recovery
+
+The user's standalone drive.mount test failed with the same credential propagation error, isolating the immediate blocker to Colab Drive authorization. Added an explicit Drive-free startup option that downloads the same public model into temporary Colab storage, plus a visible case-persistence notice. Drive mode remains the default. The launcher now executes the refreshed bootstrap through runpy so reruns do not reuse a stale imported launch function. This does not claim to repair OAuth or verify GPU inference.
+
 ## 2026-09-26 — First implementation
 
 Decision: narrow the Day-1 vertical AI problem to orchard inspection evidence and manager handoff for Alphonso mango teams.

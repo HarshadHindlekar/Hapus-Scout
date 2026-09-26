@@ -24,6 +24,8 @@ flowchart TD
 Save evidence -> pending -> ready or unavailable. Success appends timestamp, answers, model name, latency and analysis. Failure preserves all successful revisions. Human review changes workflow status; a new successful analysis reopens the case. A failed retry shows the last successful revision explicitly as previous.
 
 ## Operational boundary
+Optional `USE_DRIVE = False` skips Drive authorization and downloads the official public Qwen model using Hugging Face snapshot_download. Model and case files stay under `/content/HapusScout` and are temporary. A visible UI notice identifies this mode. Default Drive architecture and presentation remain unchanged; disclose temporary storage if demonstrating the alternate mode.
+
 One shared demo login, no role-based permissions. Anyone with the login can see all demonstration cases. The share link is temporary and stops working when its underlying runtime stops. Drive case storage persists independently. Model loading and a public share link need network access. Model files are never committed.
 
 ## Reproducibility
