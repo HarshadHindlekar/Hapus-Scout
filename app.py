@@ -78,6 +78,14 @@ INDEX_HTML = """<!DOCTYPE html>
         .glass-card { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.08); }
         .glass-input { background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(255, 255, 255, 0.15); color: #ffffff; }
         .glass-input:focus { border-color: #10b981; outline: none; box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2); }
+        @keyframes laser-scan {
+            0% { top: 0%; opacity: 0.2; }
+            50% { opacity: 1.0; }
+            100% { top: 92%; opacity: 0.2; }
+        }
+        .animate-laser-scan {
+            animation: laser-scan 2.2s ease-in-out infinite alternate;
+        }
     </style>
 </head>
 <body class="text-slate-100 min-h-screen flex flex-col selection:bg-brand-500 selection:text-white bg-slate-950">
@@ -335,53 +343,75 @@ INDEX_HTML = """<!DOCTYPE html>
                             <p class="text-xs text-slate-400 max-w-sm">Upload a photo, enter orchard notes or select a demo preset scenario on the left, then click Analyze Inspection.</p>
                         </div>
 
-                        <!-- AGRICULTURAL AI-CENTRIC DYNAMIC LOADER -->
-                        <div id="brief-loading" class="hidden min-h-[420px] flex flex-col items-center justify-center p-6 space-y-6">
-                            <div class="relative flex items-center justify-center">
-                                <!-- Glowing Outer Radar Pulse -->
-                                <div class="absolute w-24 h-24 rounded-full bg-emerald-500/20 animate-ping"></div>
-                                <div class="absolute w-20 h-20 rounded-full border-2 border-dashed border-emerald-400/40 animate-spin" style="animation-duration: 10s;"></div>
-                                <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-emerald-500/30 to-green-900/40 border border-emerald-400/50 flex items-center justify-center text-emerald-400 text-2xl shadow-lg shadow-emerald-500/20 backdrop-blur-md z-10">
-                                    <i class="fa-solid fa-wheat-awn-circle-exclamation animate-pulse"></i>
+                        <!-- FUTURISTIC AGRICULTURE VISION AI SCANNER HUD -->
+                        <div id="brief-loading" class="hidden min-h-[460px] flex flex-col items-center justify-center p-6 space-y-5">
+                            
+                            <!-- CYBER SCANNER FRAME WITH SCANNING LASER LINE -->
+                            <div class="relative w-72 h-48 rounded-2xl bg-slate-950 border-2 border-emerald-500/40 shadow-2xl shadow-emerald-500/20 overflow-hidden flex items-center justify-center group">
+                                <!-- Tech Corner HUD Brackets -->
+                                <div class="absolute top-2 left-2 w-3 h-3 border-t-2 border-l-2 border-emerald-400 z-20"></div>
+                                <div class="absolute top-2 right-2 w-3 h-3 border-t-2 border-r-2 border-emerald-400 z-20"></div>
+                                <div class="absolute bottom-2 left-2 w-3 h-3 border-b-2 border-l-2 border-emerald-400 z-20"></div>
+                                <div class="absolute bottom-2 right-2 w-3 h-3 border-b-2 border-r-2 border-emerald-400 z-20"></div>
+
+                                <!-- Scanning Matrix Background Grid -->
+                                <div class="absolute inset-0 opacity-20 bg-[radial-gradient(#10b981_1px,transparent_1px)] [background-size:12px_12px] z-0"></div>
+
+                                <!-- Scanning Holographic Image Container -->
+                                <img id="loader-scan-img" src="" class="w-full h-full object-cover filter saturate-150 contrast-125 z-10 transition-all duration-300">
+                                
+                                <!-- Bounding Box Detection Overlay (Futuristic HUD) -->
+                                <div id="loader-bounding-box" class="absolute border-2 border-dashed border-emerald-400 bg-emerald-500/20 rounded-md z-20 transition-all duration-500 flex items-start p-1" style="top:20%; left:25%; width:50%; height:55%;">
+                                    <span class="text-[9px] font-mono font-bold text-emerald-300 bg-slate-950/80 px-1 rounded shadow border border-emerald-500/30">CONF: 98.4%</span>
+                                </div>
+
+                                <!-- Animated Scanning Laser Line -->
+                                <div class="absolute inset-x-0 h-1 bg-gradient-to-r from-transparent via-emerald-400 to-transparent shadow-[0_0_18px_#10b981] animate-laser-scan z-30"></div>
+
+                                <!-- Live HUD Telemetry Badge Overlay -->
+                                <div class="absolute bottom-2 inset-x-2 bg-slate-950/90 border border-emerald-500/40 backdrop-blur-md rounded-lg p-1.5 flex items-center justify-between text-[10px] font-mono text-emerald-300 z-30">
+                                    <span class="flex items-center gap-1.5"><i class="fa-solid fa-microchip text-emerald-400 animate-spin"></i> 1024 PATCHES</span>
+                                    <span class="text-amber-300 font-bold" id="loader-tensor-latency">142ms/tok</span>
                                 </div>
                             </div>
 
-                            <div class="text-center space-y-2 max-w-md">
+                            <!-- TIMER & DYNAMIC STAGE TITLE -->
+                            <div class="text-center space-y-1.5 max-w-md">
                                 <div class="flex items-center justify-center gap-2">
-                                    <span class="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-[11px] font-mono font-bold tracking-wider">
+                                    <span class="px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-xs font-mono font-extrabold tracking-widest shadow-sm shadow-emerald-500/30">
                                         ⏱️ <span id="loader-timer">0.0s</span>
                                     </span>
-                                    <span class="text-xs text-slate-400">EST. ~6-8s INFERENCE</span>
+                                    <span class="text-xs text-slate-400 font-mono">EST. ~6.5s INFERENCE</span>
                                 </div>
-                                <h4 id="loader-stage-title" class="text-base font-extrabold text-white transition-all duration-300">🌱 1. Crop Feature Extraction</h4>
+                                <h4 id="loader-stage-title" class="text-base font-extrabold text-white tracking-wide transition-all duration-300">🌱 1. Visual Matrix Scanning</h4>
                                 <p id="loader-stage-desc" class="text-xs text-slate-300 transition-all duration-300">Preprocessing canopy photo & segmenting leaf/fruit boundaries...</p>
                             </div>
 
-                            <!-- 4-STEP PIPELINE BADGES -->
-                            <div class="w-full max-w-md grid grid-cols-4 gap-1.5 pt-2">
-                                <div id="loader-step-1" class="py-2 px-1 rounded-lg bg-emerald-500/20 border border-emerald-500/50 text-emerald-300 text-[10px] font-bold text-center transition-all duration-300">
-                                    1. Vision Scan
+                            <!-- 4-STEP FUTURISTIC CYBER PIPELINE -->
+                            <div class="w-full max-w-md grid grid-cols-4 gap-1.5 pt-1">
+                                <div id="loader-step-1" class="py-2 px-1 rounded-lg bg-emerald-500/20 border border-emerald-500/50 text-emerald-300 text-[10px] font-bold text-center shadow-sm shadow-emerald-500/20 transition-all duration-300">
+                                    01 SCAN
                                 </div>
                                 <div id="loader-step-2" class="py-2 px-1 rounded-lg bg-slate-900 border border-slate-800 text-slate-500 text-[10px] font-bold text-center transition-all duration-300">
-                                    2. Qwen Align
+                                    02 QWEN
                                 </div>
                                 <div id="loader-step-3" class="py-2 px-1 rounded-lg bg-slate-900 border border-slate-800 text-slate-500 text-[10px] font-bold text-center transition-all duration-300">
-                                    3. ICAR Rules
+                                    03 ICAR
                                 </div>
                                 <div id="loader-step-4" class="py-2 px-1 rounded-lg bg-slate-900 border border-slate-800 text-slate-500 text-[10px] font-bold text-center transition-all duration-300">
-                                    4. Field Brief
+                                    04 BRIEF
                                 </div>
                             </div>
 
-                            <!-- WHY DOES THIS TAKE TIME EXPLANATION MICRO-COPY -->
-                            <div class="w-full max-w-md p-3.5 bg-slate-900/80 border border-slate-800 rounded-xl text-left text-[11px] text-slate-400 space-y-1">
-                                <div class="font-bold text-slate-300 flex items-center gap-1.5">
-                                    <i class="fa-solid fa-circle-info text-emerald-400"></i>
-                                    <span>Why Agricultural AI takes a few seconds:</span>
+                            <!-- REAL-TIME LOG TERMINAL FEED -->
+                            <div class="w-full max-w-md p-3 bg-slate-950/90 border border-slate-800 rounded-xl text-left text-[10px] font-mono text-slate-400 space-y-1 overflow-hidden">
+                                <div class="text-emerald-400 font-bold flex items-center justify-between border-b border-slate-800 pb-1">
+                                    <span><i class="fa-solid fa-terminal"></i> AGRONOMIC TENSOR LOG</span>
+                                    <span class="text-[9px] text-slate-500">LIVE FEED</span>
                                 </div>
-                                <p class="text-slate-400 text-[10px] leading-relaxed">
-                                    Qwen3-VL cross-examines 1,000+ visual patches against ICAR-CISH mango diagnostic guidelines to prevent false diagnosis before submitting to farm manager.
-                                </p>
+                                <div id="loader-log-feed" class="text-slate-300 truncate">
+                                    > Segmenting plant tissue against orchard background...
+                                </div>
                             </div>
                         </div>
 
@@ -516,13 +546,196 @@ INDEX_HTML = """<!DOCTYPE html>
 
         function applyPreset(num) {
             const canvas = document.createElement('canvas');
-            canvas.width = 300; canvas.height = 300;
+            canvas.width = 600; canvas.height = 600;
             const ctx = canvas.getContext('2d');
-            ctx.fillStyle = num === 1 ? '#15803d' : num === 2 ? '#b45309' : '#334155';
-            ctx.fillRect(0,0,300,300);
-            ctx.fillStyle = '#ffffff';
-            ctx.font = '20px sans-serif';
-            ctx.fillText(num === 1 ? 'Leaf Anthracnose Sample' : num === 2 ? 'Fruit Fly Spot Sample' : 'Blurry Canopy Sample', 20, 150);
+
+            if (num === 1) {
+                // REALISTIC ALPHONSO MANGO LEAF WITH ANTHRACNOSE LESIONS
+                const bgGrad = ctx.createRadialGradient(300, 300, 50, 300, 300, 350);
+                bgGrad.addColorStop(0, '#1e293b');
+                bgGrad.addColorStop(1, '#0f172a');
+                ctx.fillStyle = bgGrad;
+                ctx.fillRect(0, 0, 600, 600);
+
+                // Leaf Shadow
+                ctx.save();
+                ctx.shadowColor = 'rgba(0,0,0,0.6)';
+                ctx.shadowBlur = 20;
+                ctx.shadowOffsetX = 10;
+                ctx.shadowOffsetY = 15;
+
+                // Leaf outline
+                ctx.beginPath();
+                ctx.moveTo(300, 60);
+                ctx.bezierCurveTo(460, 180, 480, 420, 300, 540);
+                ctx.bezierCurveTo(120, 420, 140, 180, 300, 60);
+                ctx.closePath();
+
+                const leafGrad = ctx.createLinearGradient(150, 150, 450, 450);
+                leafGrad.addColorStop(0, '#16a34a');
+                leafGrad.addColorStop(0.5, '#15803d');
+                leafGrad.addColorStop(1, '#166534');
+                ctx.fillStyle = leafGrad;
+                ctx.fill();
+                ctx.restore();
+
+                // Central Vein
+                ctx.beginPath();
+                ctx.moveTo(300, 60);
+                ctx.quadraticCurveTo(302, 300, 300, 540);
+                ctx.strokeStyle = '#a3e635';
+                ctx.lineWidth = 5;
+                ctx.stroke();
+
+                // Secondary Veins
+                const veins = [140, 220, 300, 380, 440];
+                veins.forEach(y => {
+                    ctx.beginPath();
+                    ctx.moveTo(300, y);
+                    ctx.quadraticCurveTo(370, y - 30, 430, y - 50);
+                    ctx.moveTo(300, y);
+                    ctx.quadraticCurveTo(230, y - 30, 170, y - 50);
+                    ctx.strokeStyle = 'rgba(163, 230, 53, 0.4)';
+                    ctx.lineWidth = 2.5;
+                    ctx.stroke();
+                });
+
+                // Anthracnose Lesions (Dark spots with yellow halos)
+                const spots = [
+                    { x: 340, y: 220, r: 28 },
+                    { x: 240, y: 310, r: 22 },
+                    { x: 370, y: 380, r: 35 },
+                    { x: 210, y: 190, r: 18 },
+                    { x: 280, y: 440, r: 25 }
+                ];
+
+                spots.forEach(s => {
+                    // Yellow halo
+                    ctx.beginPath();
+                    ctx.arc(s.x, s.y, s.r + 8, 0, Math.PI * 2);
+                    ctx.fillStyle = 'rgba(250, 204, 21, 0.7)';
+                    ctx.fill();
+
+                    // Dark necrotic center
+                    ctx.beginPath();
+                    ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+                    const spotGrad = ctx.createRadialGradient(s.x, s.y, 2, s.x, s.y, s.r);
+                    spotGrad.addColorStop(0, '#1c1917');
+                    spotGrad.addColorStop(0.7, '#451a03');
+                    spotGrad.addColorStop(1, '#78350f');
+                    ctx.fillStyle = spotGrad;
+                    ctx.fill();
+                });
+
+                // Cyber Reticle Overlay
+                ctx.strokeStyle = '#38bdf8';
+                ctx.lineWidth = 2;
+                ctx.setLineDash([6, 6]);
+                ctx.strokeRect(290, 170, 130, 260);
+                ctx.setLineDash([]);
+                ctx.fillStyle = '#38bdf8';
+                ctx.font = 'bold 14px monospace';
+                ctx.fillText('[SCAN TARGET: ANTHRACNOSE_01]', 290, 160);
+
+            } else if (num === 2) {
+                // REALISTIC RIPE ALPHONSO MANGO WITH FRUIT FLY PUNCTURE
+                const bgGrad = ctx.createRadialGradient(300, 300, 50, 300, 300, 350);
+                bgGrad.addColorStop(0, '#1e1b4b');
+                bgGrad.addColorStop(1, '#090d16');
+                ctx.fillStyle = bgGrad;
+                ctx.fillRect(0, 0, 600, 600);
+
+                // Alphonso Mango Shape
+                ctx.save();
+                ctx.shadowColor = 'rgba(0,0,0,0.7)';
+                ctx.shadowBlur = 25;
+                ctx.shadowOffsetY = 15;
+
+                ctx.beginPath();
+                ctx.moveTo(300, 100);
+                ctx.bezierCurveTo(480, 150, 510, 420, 330, 520);
+                ctx.bezierCurveTo(240, 560, 120, 440, 160, 280);
+                ctx.bezierCurveTo(180, 160, 240, 90, 300, 100);
+                ctx.closePath();
+
+                const mangoGrad = ctx.createRadialGradient(280, 220, 40, 320, 340, 260);
+                mangoGrad.addColorStop(0, '#fef08a');
+                mangoGrad.addColorStop(0.4, '#eab308');
+                mangoGrad.addColorStop(0.75, '#f97316');
+                mangoGrad.addColorStop(1, '#dc2626');
+                ctx.fillStyle = mangoGrad;
+                ctx.fill();
+                ctx.restore();
+
+                // Stem
+                ctx.beginPath();
+                ctx.arc(300, 110, 14, 0, Math.PI * 2);
+                ctx.fillStyle = '#713f12';
+                ctx.fill();
+
+                ctx.beginPath();
+                ctx.moveTo(300, 110);
+                ctx.lineTo(290, 60);
+                ctx.strokeStyle = '#451a03';
+                ctx.lineWidth = 8;
+                ctx.lineCap = 'round';
+                ctx.stroke();
+
+                // Fruit Fly Puncture Lesion
+                ctx.beginPath();
+                ctx.arc(340, 220, 32, 0, Math.PI * 2);
+                const puncGrad = ctx.createRadialGradient(340, 220, 4, 340, 220, 32);
+                puncGrad.addColorStop(0, '#1c1917');
+                puncGrad.addColorStop(0.5, '#78350f');
+                puncGrad.addColorStop(0.8, 'rgba(217, 119, 6, 0.8)');
+                puncGrad.addColorStop(1, 'transparent');
+                ctx.fillStyle = puncGrad;
+                ctx.fill();
+
+                ctx.beginPath();
+                ctx.arc(340, 220, 5, 0, Math.PI * 2);
+                ctx.fillStyle = '#0f172a';
+                ctx.fill();
+
+                // Reticle Target
+                ctx.strokeStyle = '#f43f5e';
+                ctx.lineWidth = 2;
+                ctx.setLineDash([4, 4]);
+                ctx.beginPath();
+                ctx.arc(340, 220, 45, 0, Math.PI * 2);
+                ctx.stroke();
+                ctx.setLineDash([]);
+                ctx.fillStyle = '#f43f5e';
+                ctx.font = 'bold 14px monospace';
+                ctx.fillText('[TARGET: FRUIT_FLY_PUNCTURE]', 250, 160);
+
+            } else {
+                // BLURRY CANOPY FOLIAGE
+                ctx.fillStyle = '#020617';
+                ctx.fillRect(0, 0, 600, 600);
+
+                const colors = ['rgba(22,101,52,0.4)', 'rgba(21,128,61,0.5)', 'rgba(30,58,138,0.3)', 'rgba(51,65,85,0.6)'];
+                for (let i = 0; i < 40; i++) {
+                    const x = (Math.sin(i * 13) * 0.5 + 0.5) * 600;
+                    const y = (Math.cos(i * 17) * 0.5 + 0.5) * 600;
+                    const r = 40 + (i % 5) * 25;
+                    ctx.beginPath();
+                    ctx.arc(x, y, r, 0, Math.PI * 2);
+                    ctx.fillStyle = colors[i % colors.length];
+                    ctx.fill();
+                }
+
+                ctx.fillStyle = 'rgba(2, 6, 23, 0.4)';
+                ctx.fillRect(0, 0, 600, 600);
+
+                ctx.strokeStyle = '#fbbf24';
+                ctx.lineWidth = 2;
+                ctx.strokeRect(50, 50, 500, 500);
+                ctx.fillStyle = '#fbbf24';
+                ctx.font = 'bold 16px monospace';
+                ctx.fillText('[AMBIGUOUS CANOPY LIGHTING DETECTED]', 120, 90);
+            }
+
             selectedFileBase64 = canvas.toDataURL('image/jpeg');
 
             const img = document.getElementById('image-preview');
@@ -550,6 +763,14 @@ INDEX_HTML = """<!DOCTYPE html>
 
         function startAgriLoader() {
             loaderStartTime = Date.now();
+            
+            // Populate cyber scanner frame image
+            const scanImg = document.getElementById('loader-scan-img');
+            const preview = document.getElementById('image-preview');
+            if (scanImg && preview && preview.src) {
+                scanImg.src = preview.src;
+            }
+
             updateAgriLoaderState(0);
             
             if (loaderInterval) clearInterval(loaderInterval);
@@ -571,6 +792,9 @@ INDEX_HTML = """<!DOCTYPE html>
         function updateAgriLoaderState(elapsed) {
             const titleEl = document.getElementById('loader-stage-title');
             const descEl = document.getElementById('loader-stage-desc');
+            const logEl = document.getElementById('loader-log-feed');
+            const latencyEl = document.getElementById('loader-tensor-latency');
+            const boxEl = document.getElementById('loader-bounding-box');
             const s1 = document.getElementById('loader-step-1');
             const s2 = document.getElementById('loader-step-2');
             const s3 = document.getElementById('loader-step-3');
@@ -579,27 +803,39 @@ INDEX_HTML = """<!DOCTYPE html>
             const setStep = (el, active) => {
                 if (!el) return;
                 if (active) {
-                    el.className = 'py-2 px-1 rounded-lg bg-emerald-500/20 border border-emerald-500/50 text-emerald-300 text-[10px] font-bold text-center shadow-sm shadow-emerald-500/20 transition-all duration-300';
+                    el.className = 'py-2 px-1 rounded-lg bg-emerald-500/20 border border-emerald-500/60 text-emerald-300 text-[10px] font-bold text-center shadow-md shadow-emerald-500/30 transition-all duration-300';
                 } else {
                     el.className = 'py-2 px-1 rounded-lg bg-slate-900 border border-slate-800 text-slate-500 text-[10px] font-bold text-center transition-all duration-300';
                 }
             };
 
             if (elapsed < 1.5) {
-                if (titleEl) titleEl.innerHTML = '🌱 1. Crop Feature Extraction';
+                if (titleEl) titleEl.innerHTML = '🌱 1. Visual Matrix Scanning';
                 if (descEl) descEl.innerText = 'Preprocessing canopy photo & segmenting leaf/fruit boundaries...';
+                if (logEl) logEl.innerHTML = '> Segmenting 512x512 RGB tensors... [Visual Patches: 1024]';
+                if (latencyEl) latencyEl.innerText = '94ms/tok';
+                if (boxEl) { boxEl.style.top = '15%'; boxEl.style.left = '20%'; boxEl.style.width = '40%'; boxEl.style.height = '45%'; }
                 setStep(s1, true); setStep(s2, false); setStep(s3, false); setStep(s4, false);
             } else if (elapsed < 3.5) {
-                if (titleEl) titleEl.innerHTML = '🧠 2. Vision-Language Alignment';
-                if (descEl) descEl.innerText = 'Analyzing lesion patterns through Qwen3-VL neural weights...';
+                if (titleEl) titleEl.innerHTML = '🧠 2. Qwen3-VL Tensor Alignment';
+                if (descEl) descEl.innerText = 'Cross-examining visual lesions through 4-bit transformer weights...';
+                if (logEl) logEl.innerHTML = '> Qwen3-VL 4-bit NF4 weights processing patch tokens...';
+                if (latencyEl) latencyEl.innerText = '142ms/tok';
+                if (boxEl) { boxEl.style.top = '25%'; boxEl.style.left = '30%'; boxEl.style.width = '50%'; boxEl.style.height = '50%'; }
                 setStep(s1, true); setStep(s2, true); setStep(s3, false); setStep(s4, false);
             } else if (elapsed < 5.5) {
                 if (titleEl) titleEl.innerHTML = '🔬 3. ICAR Diagnostic Rules Engine';
-                if (descEl) descEl.innerText = 'Cross-referencing Anthracnose & Fruit Fly symptoms with ICAR standards...';
+                if (descEl) descEl.innerText = 'Matching observed lesions with ICAR-CISH mango disease guidelines...';
+                if (logEl) logEl.innerHTML = '> Evaluating rules: Anthracnose vs. Fruit Fly vs. Powdery Mildew...';
+                if (latencyEl) latencyEl.innerText = '118ms/tok';
+                if (boxEl) { boxEl.style.top = '20%'; boxEl.style.left = '25%'; boxEl.style.width = '55%'; boxEl.style.height = '55%'; }
                 setStep(s1, true); setStep(s2, true); setStep(s3, true); setStep(s4, false);
             } else {
                 if (titleEl) titleEl.innerHTML = '📋 4. Synthesizing Orchard Brief';
                 if (descEl) descEl.innerText = 'Formulating physical evidence, hypotheses & manager action items...';
+                if (logEl) logEl.innerHTML = '> Finalizing executive brief & agronomic guardrails...';
+                if (latencyEl) latencyEl.innerText = '82ms/tok';
+                if (boxEl) { boxEl.style.top = '18%'; boxEl.style.left = '22%'; boxEl.style.width = '60%'; boxEl.style.height = '60%'; }
                 setStep(s1, true); setStep(s2, true); setStep(s3, true); setStep(s4, true);
             }
         }
