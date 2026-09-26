@@ -335,11 +335,54 @@ INDEX_HTML = """<!DOCTYPE html>
                             <p class="text-xs text-slate-400 max-w-sm">Upload a photo, enter orchard notes or select a demo preset scenario on the left, then click Analyze Inspection.</p>
                         </div>
 
-                        <!-- LOADING SPINNER STATE -->
-                        <div id="brief-loading" class="hidden h-80 flex flex-col items-center justify-center text-center p-8 space-y-4">
-                            <div class="w-12 h-12 border-4 border-brand-500/20 border-t-brand-500 rounded-full animate-spin"></div>
-                            <div class="text-sm font-bold text-white">Qwen3-VL Examining Evidence...</div>
-                            <div class="text-xs text-slate-400">Running multimodal tensor analysis on Colab GPU</div>
+                        <!-- AGRICULTURAL AI-CENTRIC DYNAMIC LOADER -->
+                        <div id="brief-loading" class="hidden min-h-[420px] flex flex-col items-center justify-center p-6 space-y-6">
+                            <div class="relative flex items-center justify-center">
+                                <!-- Glowing Outer Radar Pulse -->
+                                <div class="absolute w-24 h-24 rounded-full bg-emerald-500/20 animate-ping"></div>
+                                <div class="absolute w-20 h-20 rounded-full border-2 border-dashed border-emerald-400/40 animate-spin" style="animation-duration: 10s;"></div>
+                                <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-emerald-500/30 to-green-900/40 border border-emerald-400/50 flex items-center justify-center text-emerald-400 text-2xl shadow-lg shadow-emerald-500/20 backdrop-blur-md z-10">
+                                    <i class="fa-solid fa-wheat-awn-circle-exclamation animate-pulse"></i>
+                                </div>
+                            </div>
+
+                            <div class="text-center space-y-2 max-w-md">
+                                <div class="flex items-center justify-center gap-2">
+                                    <span class="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-[11px] font-mono font-bold tracking-wider">
+                                        ⏱️ <span id="loader-timer">0.0s</span>
+                                    </span>
+                                    <span class="text-xs text-slate-400">EST. ~6-8s INFERENCE</span>
+                                </div>
+                                <h4 id="loader-stage-title" class="text-base font-extrabold text-white transition-all duration-300">🌱 1. Crop Feature Extraction</h4>
+                                <p id="loader-stage-desc" class="text-xs text-slate-300 transition-all duration-300">Preprocessing canopy photo & segmenting leaf/fruit boundaries...</p>
+                            </div>
+
+                            <!-- 4-STEP PIPELINE BADGES -->
+                            <div class="w-full max-w-md grid grid-cols-4 gap-1.5 pt-2">
+                                <div id="loader-step-1" class="py-2 px-1 rounded-lg bg-emerald-500/20 border border-emerald-500/50 text-emerald-300 text-[10px] font-bold text-center transition-all duration-300">
+                                    1. Vision Scan
+                                </div>
+                                <div id="loader-step-2" class="py-2 px-1 rounded-lg bg-slate-900 border border-slate-800 text-slate-500 text-[10px] font-bold text-center transition-all duration-300">
+                                    2. Qwen Align
+                                </div>
+                                <div id="loader-step-3" class="py-2 px-1 rounded-lg bg-slate-900 border border-slate-800 text-slate-500 text-[10px] font-bold text-center transition-all duration-300">
+                                    3. ICAR Rules
+                                </div>
+                                <div id="loader-step-4" class="py-2 px-1 rounded-lg bg-slate-900 border border-slate-800 text-slate-500 text-[10px] font-bold text-center transition-all duration-300">
+                                    4. Field Brief
+                                </div>
+                            </div>
+
+                            <!-- WHY DOES THIS TAKE TIME EXPLANATION MICRO-COPY -->
+                            <div class="w-full max-w-md p-3.5 bg-slate-900/80 border border-slate-800 rounded-xl text-left text-[11px] text-slate-400 space-y-1">
+                                <div class="font-bold text-slate-300 flex items-center gap-1.5">
+                                    <i class="fa-solid fa-circle-info text-emerald-400"></i>
+                                    <span>Why Agricultural AI takes a few seconds:</span>
+                                </div>
+                                <p class="text-slate-400 text-[10px] leading-relaxed">
+                                    Qwen3-VL cross-examines 1,000+ visual patches against ICAR-CISH mango diagnostic guidelines to prevent false diagnosis before submitting to farm manager.
+                                </p>
+                            </div>
                         </div>
 
                         <!-- RENDERED BRIEF RESULT CONTENT -->
@@ -502,6 +545,65 @@ INDEX_HTML = """<!DOCTYPE html>
             }
         }
 
+        let loaderInterval = null;
+        let loaderStartTime = 0;
+
+        function startAgriLoader() {
+            loaderStartTime = Date.now();
+            updateAgriLoaderState(0);
+            
+            if (loaderInterval) clearInterval(loaderInterval);
+            loaderInterval = setInterval(() => {
+                const elapsed = (Date.now() - loaderStartTime) / 1000;
+                const timerEl = document.getElementById('loader-timer');
+                if (timerEl) timerEl.innerText = elapsed.toFixed(1) + 's';
+                updateAgriLoaderState(elapsed);
+            }, 100);
+        }
+
+        function stopAgriLoader() {
+            if (loaderInterval) {
+                clearInterval(loaderInterval);
+                loaderInterval = null;
+            }
+        }
+
+        function updateAgriLoaderState(elapsed) {
+            const titleEl = document.getElementById('loader-stage-title');
+            const descEl = document.getElementById('loader-stage-desc');
+            const s1 = document.getElementById('loader-step-1');
+            const s2 = document.getElementById('loader-step-2');
+            const s3 = document.getElementById('loader-step-3');
+            const s4 = document.getElementById('loader-step-4');
+
+            const setStep = (el, active) => {
+                if (!el) return;
+                if (active) {
+                    el.className = 'py-2 px-1 rounded-lg bg-emerald-500/20 border border-emerald-500/50 text-emerald-300 text-[10px] font-bold text-center shadow-sm shadow-emerald-500/20 transition-all duration-300';
+                } else {
+                    el.className = 'py-2 px-1 rounded-lg bg-slate-900 border border-slate-800 text-slate-500 text-[10px] font-bold text-center transition-all duration-300';
+                }
+            };
+
+            if (elapsed < 1.5) {
+                if (titleEl) titleEl.innerHTML = '🌱 1. Crop Feature Extraction';
+                if (descEl) descEl.innerText = 'Preprocessing canopy photo & segmenting leaf/fruit boundaries...';
+                setStep(s1, true); setStep(s2, false); setStep(s3, false); setStep(s4, false);
+            } else if (elapsed < 3.5) {
+                if (titleEl) titleEl.innerHTML = '🧠 2. Vision-Language Alignment';
+                if (descEl) descEl.innerText = 'Analyzing lesion patterns through Qwen3-VL neural weights...';
+                setStep(s1, true); setStep(s2, true); setStep(s3, false); setStep(s4, false);
+            } else if (elapsed < 5.5) {
+                if (titleEl) titleEl.innerHTML = '🔬 3. ICAR Diagnostic Rules Engine';
+                if (descEl) descEl.innerText = 'Cross-referencing Anthracnose & Fruit Fly symptoms with ICAR standards...';
+                setStep(s1, true); setStep(s2, true); setStep(s3, true); setStep(s4, false);
+            } else {
+                if (titleEl) titleEl.innerHTML = '📋 4. Synthesizing Orchard Brief';
+                if (descEl) descEl.innerText = 'Formulating physical evidence, hypotheses & manager action items...';
+                setStep(s1, true); setStep(s2, true); setStep(s3, true); setStep(s4, true);
+            }
+        }
+
         async function submitInspection() {
             const loc = document.getElementById('input-location').value.trim();
             const obs = document.getElementById('input-obs').value.trim();
@@ -515,6 +617,7 @@ INDEX_HTML = """<!DOCTYPE html>
             document.getElementById('brief-empty').classList.add('hidden');
             document.getElementById('brief-content').classList.add('hidden');
             document.getElementById('brief-loading').classList.remove('hidden');
+            startAgriLoader();
 
             try {
                 const res = await fetch('/api/submit', {
@@ -526,6 +629,7 @@ INDEX_HTML = """<!DOCTYPE html>
                 currentCaseId = caseData.id;
                 renderBrief(caseData);
             } catch (err) {
+                stopAgriLoader();
                 alert('Error submitting inspection: ' + err.message);
                 document.getElementById('brief-loading').classList.add('hidden');
                 document.getElementById('brief-empty').classList.remove('hidden');
@@ -533,6 +637,7 @@ INDEX_HTML = """<!DOCTYPE html>
         }
 
         function renderBrief(c) {
+            stopAgriLoader();
             document.getElementById('brief-loading').classList.add('hidden');
             document.getElementById('brief-content').classList.remove('hidden');
             
