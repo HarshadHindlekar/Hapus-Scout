@@ -15,3 +15,5 @@ Verification: six workflow tests passed on the first run, including inference ou
 Open risks: model may hallucinate, produce invalid JSON or mishandle Marathi; free Colab availability and share links are temporary. No diagnostic accuracy or commercial outcome claims are justified yet.
 
 Follow-through: browser and HTTP smoke checks passed for the UI and failure/persistence workflow. Fixed brief text contrast in dark mode. Draft PPTX passed structure/layout checks and visual review; its PDF companion passed rendering and text checks. Located the actual Drive weights in a legacy folder named after the first shard and added that location as the launcher's first candidate. Live GPU inference remains pending.
+
+Delivery: published the initial implementation to the supplied GitHub repository and opened its one-cell notebook in Colab. Startup reached Google's Drive authorization prompt, left for the user to approve. Next milestone is model load plus real-image/follow-up verification; no simulated response is used to bridge that gap.

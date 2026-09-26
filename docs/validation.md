@@ -11,6 +11,8 @@
 - Launcher cell syntax and Python compilation passed. Notebook has one executable cell with no stored outputs.
 - One-slide PPTX passed package/layout/font checks and Artifact Tool re-import; rendered slide visually inspected. Companion one-page PDF rendered and visually inspected; text extracted successfully. Native PowerPoint was not used.
 - Drive UI inspection located a Qwen3-VL configuration, both weight shards and processor files under the legacy folder named model-00001-of-00002.safetensors. This is file-presence evidence, not a GPU load test.
+- The published GitHub launcher opened in Colab, allocated a runtime, fetched repository code and reached the Google Drive authorization prompt. User authorization is the next step; no live inference has been claimed.
+- Ruff undefined/unused-name checks and isolated environment dependency checks passed.
 
 ## Still to verify / record
 - Mobile viewport and second-device access.
