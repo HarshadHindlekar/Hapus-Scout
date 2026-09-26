@@ -61,6 +61,11 @@ class VisionModel:
                 load_in_4bit=True, bnb_4bit_quant_type="nf4",
                 bnb_4bit_compute_dtype=torch.float16, bnb_4bit_use_double_quant=True)
         print("[INFO] Injecting 4-bit quantized tensor weights into PyTorch CUDA pipeline...", flush=True)
+        print("\n********************************************************************************", flush=True)
+        print("⚠️  DO NOT CLICK STOP OR INTERRUPT IN COLAB! ⚠️", flush=True)
+        print("-> Loading checkpoint shards into VRAM takes ~30-40 seconds on Colab T4 GPU.", flush=True)
+        print("-> The cell is NOT frozen. Please leave it running until your live app link prints!", flush=True)
+        print("********************************************************************************\n", flush=True)
         model = Qwen3VLForConditionalGeneration.from_pretrained(str(path), **kwargs).eval()
         self.processor, self.model = processor, model
         print("\n=======================================================", flush=True)
