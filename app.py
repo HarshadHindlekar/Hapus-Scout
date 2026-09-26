@@ -709,12 +709,28 @@ def main():
     
     port = 7860
     if args.share:
-        # Launch FastAPI backend with Gradio Tunnel!
-        token = secrets.token_urlsafe(16)
-        tunnel = Tunnel("gradio.live", 7000, "127.0.0.1", port, token, None)
-        public_url = tunnel.start_tunnel()
+        public_url = None
+        try:
+            token = secrets.token_urlsafe(16)
+            tunnel = Tunnel("gradio.live", 7000, "127.0.0.1", port, token, None)
+            public_url = tunnel.start_tunnel()
+        except Exception as exc:
+            print(f"Gradio tunnel error: {exc}. Trying localtunnel fallback...", flush=True)
+            try:
+                import subprocess, time
+                proc = subprocess.Popen(["npx", "-y", "localtunnel", "--port", str(port)], stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
+                time.sleep(3)
+                for _ in range(10):
+                    line = proc.stdout.readline()
+                    if "url is:" in line.lower():
+                        public_url = line.split("is:")[-1].strip()
+                        break
+                    time.sleep(0.5)
+            except Exception as fallback_exc:
+                print(f"Fallback warning: {fallback_exc}", flush=True)
+
         print(f"\n=======================================================", flush=True)
-        print(f"🚀 Hapus Scout Enterprise Live App: {public_url}", flush=True)
+        print(f"🚀 Hapus Scout Enterprise Live App: {public_url or f'http://127.0.0.1:{port}'}", flush=True)
         print(f"🔑 Passcode: scout / scout123", flush=True)
         print(f"=======================================================\n", flush=True)
         uvicorn.run(fastapi_app, host="127.0.0.1", port=port)
