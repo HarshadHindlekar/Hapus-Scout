@@ -11,9 +11,9 @@ from scout.service import ScoutService
 from scout.storage import CaseStore
 
 CSS = """
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap');
 
-/* Global Reset & Body Background */
+/* Global Reset & Slate Theme */
 *, *::before, *::after {
     box-sizing: border-box;
 }
@@ -21,84 +21,154 @@ CSS = """
 body, html {
     margin: 0;
     padding: 0;
-    background-color: #032319 !important;
-    font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, sans-serif !important;
+    background-color: #0f172a !important; /* Dark Slate Base Background */
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
     color: #0f172a !important;
     -webkit-font-smoothing: antialiased;
 }
 
-/* GRADIO CONTAINER OVERRIDES */
+/* GRADIO LOGIN PAGE OVERRIDES (/login) */
+.login, form[action="/login"] {
+    background: #ffffff !important;
+    border: 1px solid #cbd5e1 !important;
+    border-radius: 12px !important;
+    padding: 40px 32px !important;
+    max-width: 400px !important;
+    margin: 60px auto !important;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.1) !important;
+    text-align: center !important;
+}
+
+.login h1, form[action="/login"]::before {
+    font-family: 'Plus Jakarta Sans', sans-serif !important;
+    font-size: 22px !important;
+    font-weight: 800 !important;
+    color: #0f172a !important;
+    letter-spacing: -0.5px !important;
+    margin-bottom: 4px !important;
+}
+
+.login label {
+    display: block !important;
+    text-align: left !important;
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    color: #475569 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    margin-top: 14px !important;
+    margin-bottom: 6px !important;
+}
+
+.login input[type="text"], .login input[type="password"] {
+    width: 100% !important;
+    padding: 10px 14px !important;
+    font-size: 14px !important;
+    border: 1px solid #cbd5e1 !important;
+    border-radius: 8px !important;
+    background: #f8fafc !important;
+    color: #0f172a !important;
+    margin-bottom: 12px !important;
+    box-sizing: border-box !important;
+}
+
+.login input[type="text"]:focus, .login input[type="password"]:focus {
+    border-color: #059669 !important;
+    outline: none !important;
+    box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.15) !important;
+}
+
+.login button, .login input[type="submit"] {
+    width: 100% !important;
+    margin-top: 20px !important;
+    padding: 12px 18px !important;
+    background: #059669 !important;
+    color: #ffffff !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    border: none !important;
+    border-radius: 8px !important;
+    cursor: pointer !important;
+    box-shadow: 0 2px 4px rgba(5, 150, 105, 0.2) !important;
+    transition: background 0.2s ease !important;
+}
+
+.login button:hover, .login input[type="submit"]:hover {
+    background: #047857 !important;
+}
+
+/* GRADIO WORKSPACE CONTAINER */
 .gradio-container {
     width: 100% !important;
-    max-width: 1380px !important;
+    max-width: 1360px !important;
     margin: 0 auto !important;
-    padding: clamp(10px, 2vw, 24px) !important;
+    padding: clamp(12px, 2vw, 24px) !important;
 }
 
 .gradio-container .main {
-    background: #f4f7f4 !important;
-    border-radius: 24px !important;
-    padding: clamp(14px, 2vw, 28px) !important;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.45) !important;
+    background: #ffffff !important;
+    border-radius: 16px !important;
+    padding: clamp(16px, 2.5vw, 28px) !important;
+    border: 1px solid #cbd5e1 !important;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1) !important;
 }
 
 .gradio-container .app, .gradio-container .html-container {
     padding: 0 !important;
 }
 
-/* HEADER HERO BANNER */
+/* STANDARDIZED ENTERPRISE HEADER */
 #hero {
-    background: linear-gradient(135deg, #04392b 0%, #022018 100%);
+    background: #0f172a;
     color: #ffffff;
-    padding: clamp(18px, 2.5vw, 28px);
-    border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(4, 57, 43, 0.35);
+    padding: 20px 24px;
+    border-radius: 12px;
     margin-bottom: 20px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
     gap: 16px;
-    border: 1px solid rgba(16, 185, 129, 0.25);
+    border: 1px solid #1e293b;
 }
 
 .brand-wrapper {
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 14px;
 }
 
 .brand-icon {
-    width: 54px;
-    height: 54px;
-    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    width: 44px;
+    height: 44px;
+    background: #059669;
     color: #ffffff;
-    border-radius: 16px;
+    border-radius: 10px;
     display: grid;
     place-items: center;
-    box-shadow: 0 6px 16px rgba(16, 185, 129, 0.4);
     flex-shrink: 0;
 }
 
 .brand-title h1 {
     color: #ffffff !important;
-    font-size: clamp(22px, 3vw, 28px) !important;
+    font-family: 'Plus Jakarta Sans', sans-serif !important;
+    font-size: clamp(20px, 2.5vw, 24px) !important;
     font-weight: 800 !important;
-    letter-spacing: -0.5px;
+    letter-spacing: -0.4px;
     margin: 0 !important;
     line-height: 1.1;
 }
 
 .brand-title .badge {
     display: inline-block;
-    background: rgba(16, 185, 129, 0.2);
-    border: 1px solid rgba(16, 185, 129, 0.4);
-    color: #6ee7b7;
+    background: rgba(5, 150, 105, 0.2);
+    border: 1px solid rgba(5, 150, 105, 0.4);
+    color: #34d399;
     font-size: 10px;
     font-weight: 700;
-    padding: 3px 10px;
-    border-radius: 20px;
-    letter-spacing: 1px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    letter-spacing: 0.8px;
     text-transform: uppercase;
     margin-bottom: 4px;
 }
@@ -110,93 +180,89 @@ body, html {
 }
 
 .status-pill {
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    color: #e2e8f0;
+    background: #1e293b;
+    border: 1px solid #334155;
+    color: #cbd5e1;
     font-size: 11px;
-    font-weight: 600;
-    padding: 6px 14px;
-    border-radius: 30px;
+    font-weight: 500;
+    padding: 5px 12px;
+    border-radius: 6px;
     display: flex;
     align-items: center;
     gap: 6px;
 }
 
 .status-dot {
-    width: 8px;
-    height: 8px;
+    width: 7px;
+    height: 7px;
     border-radius: 50%;
     background-color: #10b981;
-    box-shadow: 0 0 10px #10b981;
 }
 
 /* METRICS STRIP */
 .metrics-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
     gap: 12px;
     margin-bottom: 20px;
 }
 
 .metric-card {
-    background: #ffffff;
+    background: #f8fafc;
     border: 1px solid #e2e8f0;
-    border-radius: 14px;
-    padding: 14px 16px;
-    text-align: center;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+    border-radius: 8px;
+    padding: 12px 16px;
+    text-align: left;
 }
 
 .metric-card-val {
     font-size: 16px;
-    font-weight: 800;
-    color: #059669;
+    font-weight: 700;
+    color: #0f172a;
 }
 
 .metric-card-lbl {
-    font-size: 10px;
-    font-weight: 700;
+    font-size: 11px;
+    font-weight: 600;
     color: #64748b;
     text-transform: uppercase;
     letter-spacing: 0.5px;
     margin-top: 2px;
 }
 
-/* WORKFLOW STEPS BAR */
+/* WORKFLOW BAR */
 .workflow-steps-bar {
-    background: #ffffff;
+    background: #f8fafc;
     border: 1px solid #e2e8f0;
-    border-radius: 14px;
-    padding: 12px 20px;
+    border-radius: 8px;
+    padding: 10px 16px;
     margin-bottom: 20px;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
     gap: 12px;
     flex-wrap: wrap;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.02);
 }
 
 .step-item {
     display: flex;
     align-items: center;
-    gap: 10px;
-    color: #475569;
+    gap: 8px;
+    color: #334155;
     font-size: 12px;
     font-weight: 600;
 }
 
 .step-num {
-    width: 26px;
-    height: 26px;
-    border-radius: 50%;
-    background: #ecfdf5;
-    color: #059669;
-    font-weight: 800;
+    width: 22px;
+    height: 22px;
+    border-radius: 4px;
+    background: #e2e8f0;
+    color: #0f172a;
+    font-weight: 700;
     display: grid;
     place-items: center;
     font-size: 11px;
-    border: 1px solid #a7f3d0;
 }
 
 /* PRESETS BAR */
@@ -205,7 +271,7 @@ body, html {
     font-weight: 700;
     color: #475569;
     text-transform: uppercase;
-    letter-spacing: 0.8px;
+    letter-spacing: 0.6px;
     margin-bottom: 8px;
 }
 
@@ -213,88 +279,82 @@ body, html {
 #report-panel, #brief-panel, #library-panel, #case-panel {
     background: #ffffff !important;
     border: 1px solid #e2e8f0 !important;
-    border-radius: 20px !important;
-    padding: clamp(16px, 2.5vw, 26px) !important;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03) !important;
+    border-radius: 12px !important;
+    padding: 20px !important;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05) !important;
 }
 
 .section-head {
-    margin-bottom: 18px;
-    padding-bottom: 12px;
+    margin-bottom: 16px;
+    padding-bottom: 10px;
     border-bottom: 1px solid #f1f5f9;
 }
 
 .section-head h3 {
-    font-size: clamp(18px, 2.5vw, 21px) !important;
-    font-weight: 800 !important;
+    font-family: 'Plus Jakarta Sans', sans-serif !important;
+    font-size: 18px !important;
+    font-weight: 700 !important;
     color: #0f172a !important;
-    margin: 0 0 6px !important;
-    display: flex;
-    align-items: center;
-    gap: 10px;
+    margin: 0 0 4px !important;
     letter-spacing: -0.3px;
 }
 
 .section-head p {
-    font-size: 13px !important;
+    font-size: 12px !important;
     color: #64748b !important;
     margin: 0 !important;
 }
 
 /* TABS STYLING */
 .tab-nav {
-    border-bottom: 2px solid #e2e8f0 !important;
-    gap: 20px !important;
+    border-bottom: 1px solid #e2e8f0 !important;
+    gap: 16px !important;
     margin-bottom: 20px !important;
 }
 
 .tab-nav button {
-    padding: 12px 8px !important;
+    padding: 10px 4px !important;
     font-size: 14px !important;
     font-weight: 600 !important;
     color: #64748b !important;
     border-radius: 0 !important;
     border: none !important;
     background: transparent !important;
-    transition: all 0.2s ease !important;
+    transition: all 0.15s ease !important;
 }
 
 .tab-nav button.selected {
     color: #059669 !important;
-    border-bottom: 3px solid #059669 !important;
+    border-bottom: 2px solid #059669 !important;
     font-weight: 700 !important;
 }
 
 /* PHOTO DROPZONE */
 #photo-input {
-    border: 2px dashed #a7f3d0 !important;
-    background: #f0fdf4 !important;
-    border-radius: 16px !important;
-    transition: all 0.2s ease;
+    border: 1px dashed #cbd5e1 !important;
+    background: #f8fafc !important;
+    border-radius: 8px !important;
 }
 
 #photo-input:hover {
     border-color: #059669 !important;
-    background: #dcfce7 !important;
 }
 
 /* BUTTONS */
 .gradio-container button.primary {
-    background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+    background: #059669 !important;
     color: #ffffff !important;
-    font-weight: 700 !important;
-    font-size: 15px !important;
+    font-weight: 600 !important;
+    font-size: 14px !important;
     border: none !important;
-    border-radius: 12px !important;
-    padding: 14px 20px !important;
-    box-shadow: 0 4px 14px rgba(16, 185, 129, 0.35) !important;
-    transition: all 0.2s ease !important;
+    border-radius: 8px !important;
+    padding: 12px 18px !important;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05) !important;
+    transition: background 0.15s ease !important;
 }
 
 .gradio-container button.primary:hover {
-    background: linear-gradient(135deg, #059669 0%, #047857 100%) !important;
-    transform: translateY(-1px) !important;
-    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.45) !important;
+    background: #047857 !important;
 }
 
 .gradio-container button.secondary {
@@ -302,8 +362,8 @@ body, html {
     color: #334155 !important;
     border: 1px solid #cbd5e1 !important;
     font-weight: 600 !important;
-    border-radius: 12px !important;
-    transition: all 0.2s ease !important;
+    border-radius: 8px !important;
+    transition: background 0.15s ease !important;
 }
 
 .gradio-container button.secondary:hover {
@@ -313,25 +373,21 @@ body, html {
 
 /* STORAGE ALERT */
 #storage-note {
-    background: #fffbe6;
-    border: 1px solid #ffe58f;
-    padding: 12px 18px !important;
-    border-radius: 14px;
-    color: #873800;
-    font-size: 13px;
-    font-weight: 600;
-    margin-bottom: 20px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
+    background: #fefce8;
+    border: 1px solid #fef08a;
+    padding: 10px 14px !important;
+    border-radius: 8px;
+    color: #713f12;
+    font-size: 12px;
+    font-weight: 500;
+    margin-bottom: 16px;
 }
 
 /* BRIEF DASHBOARD HTML */
 .brief-card {
     background: #ffffff;
-    border-radius: 16px;
     color: #0f172a;
-    line-height: 1.6;
+    line-height: 1.5;
 }
 
 .brief-header {
@@ -339,121 +395,116 @@ body, html {
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
-    gap: 10px;
-    padding-bottom: 14px;
+    gap: 8px;
+    padding-bottom: 12px;
     margin-bottom: 14px;
     border-bottom: 1px solid #f1f5f9;
 }
 
 .case-id-tag {
     font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 1px;
+    font-weight: 600;
     color: #64748b;
     background: #f1f5f9;
-    padding: 4px 10px;
-    border-radius: 6px;
-    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 4px;
 }
 
 .status-badge-open {
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 700;
-    color: #d97706;
+    color: #b45309;
     background: #fef3c7;
-    border: 1px solid #fde68a;
-    padding: 4px 12px;
-    border-radius: 20px;
+    padding: 3px 10px;
+    border-radius: 12px;
 }
 
 .status-badge-reviewed {
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 700;
-    color: #059669;
+    color: #047857;
     background: #d1fae5;
-    border: 1px solid #a7f3d0;
-    padding: 4px 12px;
-    border-radius: 20px;
+    padding: 3px 10px;
+    border-radius: 12px;
 }
 
 .quality-badge-usable {
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 600;
     color: #047857;
     background: #ecfdf5;
-    padding: 4px 10px;
-    border-radius: 6px;
+    padding: 3px 8px;
+    border-radius: 4px;
 }
 
 .quality-badge-unclear {
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 600;
     color: #b45309;
-    background: #fffbe6;
-    padding: 4px 10px;
-    border-radius: 6px;
+    background: #fef3c7;
+    padding: 3px 8px;
+    border-radius: 4px;
 }
 
 .brief-location {
-    font-size: clamp(20px, 2.5vw, 24px);
-    font-weight: 800;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
     color: #0f172a;
-    margin: 0 0 8px 0;
-    letter-spacing: -0.5px;
+    margin: 0 0 6px 0;
 }
 
 .worker-obs-box {
     background: #f8fafc;
-    border-left: 4px solid #059669;
-    padding: 12px 16px;
-    border-radius: 0 10px 10px 0;
-    margin-bottom: 18px;
-    font-size: 14px;
+    border-left: 3px solid #059669;
+    padding: 10px 14px;
+    border-radius: 0 6px 6px 0;
+    margin-bottom: 16px;
+    font-size: 13px;
     color: #334155;
 }
 
 .exec-summary-box {
-    background: linear-gradient(135deg, #ecfdf5 0%, #f0fdf4 100%);
-    border: 1px solid #a7f3d0;
-    border-radius: 12px;
-    padding: 16px;
-    margin-bottom: 20px;
-    color: #065f46;
-    font-size: 15px;
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    border-radius: 8px;
+    padding: 14px;
+    margin-bottom: 16px;
+    color: #166534;
+    font-size: 14px;
     font-weight: 500;
 }
 
 .brief-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 14px;
-    margin-bottom: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 12px;
+    margin-bottom: 16px;
 }
 
 .brief-section-card {
     background: #ffffff;
     border: 1px solid #e2e8f0;
-    border-radius: 14px;
-    padding: 16px;
+    border-radius: 8px;
+    padding: 14px;
 }
 
 .brief-section-title {
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 700;
-    color: #1e293b;
+    color: #0f172a;
     margin: 0 0 8px 0;
-    display: flex;
-    align-items: center;
-    gap: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
 }
 
 .brief-section-card ul {
     margin: 0;
-    padding-left: 18px;
+    padding-left: 16px;
 }
 
 .brief-section-card li {
-    margin-bottom: 6px;
+    margin-bottom: 4px;
     font-size: 13px;
     color: #334155;
 }
@@ -465,23 +516,22 @@ body, html {
     color: #b45309;
     padding: 2px 6px;
     border-radius: 4px;
-    text-transform: uppercase;
 }
 
 .citation-pill {
     display: inline-flex;
     align-items: center;
-    gap: 6px;
+    gap: 4px;
     background: #f1f5f9;
     border: 1px solid #cbd5e1;
     color: #0f172a !important;
-    padding: 6px 12px;
-    border-radius: 20px;
+    padding: 4px 10px;
+    border-radius: 6px;
     font-size: 12px;
-    font-weight: 600;
+    font-weight: 500;
     text-decoration: none !important;
-    margin-right: 8px;
-    margin-bottom: 8px;
+    margin-right: 6px;
+    margin-bottom: 6px;
 }
 
 .citation-pill:hover {
@@ -489,77 +539,62 @@ body, html {
 }
 
 .safety-disclaimer {
-    background: #fffbe6;
-    border: 1px solid #ffe58f;
-    border-radius: 10px;
-    padding: 12px 16px;
-    font-size: 12px;
-    color: #873800;
-    line-height: 1.5;
-    margin-top: 16px;
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
+    background: #fefce8;
+    border: 1px solid #fef08a;
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 11px;
+    color: #713f12;
+    line-height: 1.4;
+    margin-top: 14px;
 }
 
 /* EMPTY BRIEF PLACEHOLDER */
 .empty-brief-container {
-    min-height: 300px;
+    min-height: 280px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: 32px 20px;
-    border: 2px dashed #e2e8f0;
-    border-radius: 16px;
+    padding: 24px;
+    border: 1px dashed #cbd5e1;
+    border-radius: 12px;
     background: #fafcfb;
 }
 
 .empty-brief-icon {
-    width: 60px;
-    height: 60px;
-    background: #ecfdf5;
-    color: #059669;
-    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    background: #f1f5f9;
+    color: #475569;
+    border-radius: 8px;
     display: grid;
     place-items: center;
-    font-size: 26px;
-    margin-bottom: 14px;
-    box-shadow: 0 4px 12px rgba(5, 150, 105, 0.1);
+    font-size: 20px;
+    margin-bottom: 12px;
 }
 
 .empty-brief-container h3 {
-    font-size: 17px !important;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 16px !important;
     font-weight: 700 !important;
     color: #0f172a !important;
-    margin: 0 0 6px 0 !important;
+    margin: 0 0 4px 0 !important;
 }
 
 .empty-brief-container p {
-    font-size: 13px !important;
+    font-size: 12px !important;
     color: #64748b !important;
-    max-width: 320px;
+    max-width: 300px;
     margin: 0 !important;
-    line-height: 1.6;
+    line-height: 1.5;
 }
 
 .help-line {
-    font-size: 12px !important;
+    font-size: 11px !important;
     color: #94a3b8 !important;
-    margin-top: 8px !important;
-}
-
-/* MOBILE RESPONSIVE ADAPTATIONS (< 640px) */
-@media (max-width: 640px) {
-    .gradio-container { padding: 4px !important; }
-    .gradio-container .main { padding: 10px !important; border-radius: 16px !important; }
-    #hero { padding: 16px; border-radius: 16px; }
-    .metrics-grid { grid-template-columns: 1fr 1fr; }
-    .workflow-steps-bar { flex-direction: column; align-items: flex-start; gap: 8px; }
-    #report-panel, #brief-panel, #library-panel, #case-panel { padding: 14px !important; border-radius: 14px !important; }
-    .tab-nav { gap: 10px !important; }
-    .tab-nav button { font-size: 13px !important; padding: 10px 4px !important; }
+    margin-top: 6px !important;
 }
 """
 
@@ -567,7 +602,7 @@ body, html {
 def scout_theme():
     theme = gr.themes.Base(primary_hue="emerald", neutral_hue="slate", font=["Plus Jakarta Sans", "Inter", "sans-serif"])
     values = dict(
-        body_background_fill="#032319",
+        body_background_fill="#0f172a",
         body_text_color="#0f172a",
         body_text_color_subdued="#64748b",
         background_fill_primary="#ffffff",
@@ -583,13 +618,13 @@ def scout_theme():
         block_label_text_size="13px",
         block_label_text_weight="600",
         block_label_padding="4px 0",
-        block_shadow="0 2px 8px rgba(0,0,0,0.02)",
+        block_shadow="none",
         input_background_fill="#f8fafc",
         input_border_color="#cbd5e1",
         input_border_color_focus="#059669",
         input_shadow="none",
         input_text_size="14px",
-        input_radius="10px",
+        input_radius="6px",
         input_placeholder_color="#94a3b8",
         button_primary_background_fill="#059669",
         button_primary_background_fill_hover="#047857",
@@ -599,7 +634,7 @@ def scout_theme():
         button_secondary_background_fill_hover="#e2e8f0",
         button_secondary_text_color="#1e293b",
         button_secondary_border_color="#cbd5e1",
-        button_large_radius="10px",
+        button_large_radius="8px",
         button_large_text_size="14px",
         checkbox_label_background_fill="#ffffff",
         checkbox_label_text_color="#334155",
@@ -611,7 +646,7 @@ def scout_theme():
         panel_background_fill="#ffffff",
         block_padding="12px",
         layout_gap="16px",
-        block_radius="12px",
+        block_radius="8px",
     )
     parameters = inspect.signature(theme.set).parameters
     for name, value in list(values.items()):
@@ -640,12 +675,12 @@ def render(case):
         f'<div><span class="case-id-tag">CASE REF: {esc(case["id"][:8])}</span></div>',
         f'<div><span class="{status_class}">● {esc(case["status"].upper())}</span></div>',
         f'</div>',
-        f'<h2 class="brief-location">📍 {esc(case["report"]["location"])} <span style="font-size:14px; font-weight:500; color:#64748b;">({esc(case["report"]["part"])})</span></h2>',
+        f'<h2 class="brief-location">📍 {esc(case["report"]["location"])} <span style="font-size:13px; font-weight:500; color:#64748b;">({esc(case["report"]["part"])})</span></h2>',
         f'<div class="worker-obs-box"><b>Field Observation:</b> "{esc(case["report"]["observation"])}"</div>'
     ]
 
     if case["analysis_status"] == "pending":
-        parts.append('<div class="exec-summary-box" style="background:#fffbe6; border-color:#ffe58f; color:#873800;">⏳ Report registered. Qwen3-VL Vision AI is examining image evidence. Keep session active...</div>')
+        parts.append('<div class="exec-summary-box" style="background:#fefce8; border-color:#fef08a; color:#713f12;">⏳ Report registered. Qwen3-VL Vision AI is examining image evidence. Keep session active...</div>')
     elif case["analysis_status"] != "ready":
         parts.append('<div class="exec-summary-box" style="background:#fef2f2; border-color:#fecaca; color:#991b1b;">⚠️ Multimodal AI inference pending or unavailable. Photo and worker record are securely preserved. Retry when model is active.</div>')
 
@@ -666,8 +701,8 @@ def render(case):
         # Visible Observations
         obs_items = "".join(f'<li>{esc(item)}</li>' for item in result["observations"]) if result["observations"] else "<li>No specific visual anomaly isolated.</li>"
         parts.append(
-            f'<div class="brief-section-card" style="border-left: 4px solid #10b981;">'
-            f'<div class="brief-section-title"><span>🔍</span> Visible Physical Evidence</div>'
+            f'<div class="brief-section-card" style="border-left: 3px solid #059669;">'
+            f'<div class="brief-section-title">Physical Evidence</div>'
             f'<ul>{obs_items}</ul>'
             f'</div>'
         )
@@ -675,8 +710,8 @@ def render(case):
         # Possible Explanations (Hypotheses)
         exp_items = "".join(f'<li>{esc(item)}</li>' for item in result["possible_explanations"]) if result["possible_explanations"] else "<li>No explanations generated (insufficient evidence).</li>"
         parts.append(
-            f'<div class="brief-section-card" style="border-left: 4px solid #f59e0b;">'
-            f'<div class="brief-section-title"><span>💡</span> Possible Hypotheses <span class="badge-unconfirmed">Unconfirmed</span></div>'
+            f'<div class="brief-section-card" style="border-left: 3px solid #d97706;">'
+            f'<div class="brief-section-title">Diagnostic Hypotheses <span class="badge-unconfirmed">Unconfirmed</span></div>'
             f'<ul>{exp_items}</ul>'
             f'</div>'
         )
@@ -684,8 +719,8 @@ def render(case):
         # Questions for Worker
         q_items = "".join(f'<li>{esc(item)}</li>' for item in result["questions"]) if result["questions"] else "<li>No additional questions required.</li>"
         parts.append(
-            f'<div class="brief-section-card" style="border-left: 4px solid #3b82f6;">'
-            f'<div class="brief-section-title"><span>❓</span> Questions for Field Worker</div>'
+            f'<div class="brief-section-card" style="border-left: 3px solid #2563eb;">'
+            f'<div class="brief-section-title">Worker Questions</div>'
             f'<ul>{q_items}</ul>'
             f'</div>'
         )
@@ -693,8 +728,8 @@ def render(case):
         # Next Checks
         check_items = "".join(f'<li>{esc(item)}</li>' for item in result["next_checks"]) if result["next_checks"] else "<li>Standard agronomic monitoring recommended.</li>"
         parts.append(
-            f'<div class="brief-section-card" style="border-left: 4px solid #14b8a6;">'
-            f'<div class="brief-section-title"><span>📋</span> Next Evidence to Collect</div>'
+            f'<div class="brief-section-card" style="border-left: 3px solid #0d9488;">'
+            f'<div class="brief-section-title">Next Evidence Checks</div>'
             f'<ul>{check_items}</ul>'
             f'</div>'
         )
@@ -702,8 +737,8 @@ def render(case):
         # Uncertainties & Limitations
         lim_items = "".join(f'<li>{esc(item)}</li>' for item in result["limitations"]) if result["limitations"] else "<li>Standard vision model constraints apply.</li>"
         parts.append(
-            f'<div class="brief-section-card" style="border-left: 4px solid #64748b;">'
-            f'<div class="brief-section-title"><span>🛡️</span> Technical Uncertainties & Constraints</div>'
+            f'<div class="brief-section-card" style="border-left: 3px solid #64748b;">'
+            f'<div class="brief-section-title">Technical Constraints</div>'
             f'<ul>{lim_items}</ul>'
             f'</div>'
         )
@@ -713,16 +748,15 @@ def render(case):
         # Reference Context Citations
         sources = [r for r in REFERENCES if r["id"] in result["reference_ids"]]
         if sources:
-            parts.append('<div style="margin-top:16px;"><div class="brief-section-title" style="font-size:13px; color:#475569;">📚 Grounded Agricultural References</div><div>')
+            parts.append('<div style="margin-top:14px;"><div class="brief-section-title" style="font-size:11px;">Grounded References</div><div>')
             for r in sources:
                 parts.append(f'<a href="{esc(r["url"])}" target="_blank" rel="noopener" class="citation-pill">📄 {esc(r["title"])} ↗</a>')
             parts.append('</div></div>')
 
     parts.append(
         '<div class="safety-disclaimer">'
-        '<span>🛡️</span>'
-        '<div><b>Agronomic Protocol Guardrail:</b> This AI brief is for structured field inspection support. '
-        'All hypotheses must be verified by a certified orchard manager or agronomist. No chemical prescriptions or fruit authenticity guarantees provided.</div>'
+        '<b>Agronomic Protocol Guardrail:</b> This AI brief is for structured field inspection support. '
+        'All hypotheses must be verified by a certified orchard manager or agronomist. No chemical prescriptions or fruit authenticity guarantees provided.'
         '</div>'
     )
     parts.append('</div>')
@@ -778,7 +812,7 @@ def build_app(service):
             '<header id="hero">'
             '<div class="brand-wrapper">'
             '<div class="brand-icon">'
-            '<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.4 19 2c1 2 2 4.12 2 9a7 7 0 0 1-10 9z"></path><path d="M11 20v-8.5"></path></svg>'
+            '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.4 19 2c1 2 2 4.12 2 9a7 7 0 0 1-10 9z"></path><path d="M11 20v-8.5"></path></svg>'
             '</div>'
             '<div class="brand-title">'
             '<span class="badge">Hapus & More AI Platform</span>'
@@ -787,8 +821,8 @@ def build_app(service):
             '</div>'
             '<div class="system-status-pills">'
             '<div class="status-pill"><span class="status-dot"></span>Qwen3-VL Vision Model</div>'
-            '<div class="status-pill">🥭 Alphonso Orchard Module</div>'
-            '<div class="status-pill" style="border-color:#f59e0b; color:#fbbf24;">🏆 Day-1 Pitch Fest</div>'
+            '<div class="status-pill">Alphonso Orchard Module</div>'
+            '<div class="status-pill">Day-1 Pitch Fest</div>'
             '</div>'
             '</header>'
         )
@@ -796,8 +830,8 @@ def build_app(service):
         # Metrics Strip
         gr.HTML(
             '<div class="metrics-grid">'
-            '<div class="metric-card"><div class="metric-card-val">12</div><div class="metric-card-lbl">Orchard Blocks</div></div>'
-            '<div class="metric-card"><div class="metric-card-val">Qwen3-VL</div><div class="metric-card-lbl">Vision AI (4-Bit)</div></div>'
+            '<div class="metric-card"><div class="metric-card-val">12 Blocks</div><div class="metric-card-lbl">Orchard Sectors</div></div>'
+            '<div class="metric-card"><div class="metric-card-val">Qwen3-VL</div><div class="metric-card-lbl">Vision AI Engine</div></div>'
             '<div class="metric-card"><div class="metric-card-val">0 Prescriptions</div><div class="metric-card-lbl">Safety Enforced</div></div>'
             '<div class="metric-card"><div class="metric-card-val">ICAR Grounded</div><div class="metric-card-lbl">Agronomic Rules</div></div>'
             '</div>'
@@ -806,36 +840,36 @@ def build_app(service):
         # Workflow Steps Bar
         gr.HTML(
             '<div class="workflow-steps-bar">'
-            '<div class="step-item"><span class="step-num">01</span> 📷 Capture Evidence & Context</div>'
+            '<div class="step-item"><span class="step-num">1</span> Capture Evidence & Context</div>'
             '<div style="color:#cbd5e1;">→</div>'
-            '<div class="step-item"><span class="step-num">02</span> 🤖 Qwen3-VL Multimodal Triage</div>'
+            '<div class="step-item"><span class="step-num">2</span> Qwen3-VL Multimodal Triage</div>'
             '<div style="color:#cbd5e1;">→</div>'
-            '<div class="step-item"><span class="step-num">03</span> 📋 Agronomic Action & Case Audit</div>'
+            '<div class="step-item"><span class="step-num">3</span> Agronomic Action & Case Audit</div>'
             '</div>'
         )
 
         if os.environ.get("SCOUT_STORAGE_MODE") == "temporary":
             gr.HTML(
                 '<div id="storage-note">'
-                '<span>⚡</span> <b>Session-Only Cloud Sandbox</b> · Inspection reports are preserved for this active session.'
+                '<b>Session-Only Workspace</b> · Inspection reports are preserved for this active session.'
                 '</div>'
             )
 
-        with gr.Tab("⚡ New Inspection"):
+        with gr.Tab("New Inspection"):
             current = gr.State("")
 
             # Presets Bar
-            gr.HTML('<div class="preset-bar-title">⚡ Quick Demo Presets (Click to auto-fill sample orchard issues):</div>')
+            gr.HTML('<div class="preset-bar-title">Demo Presets (Click to auto-fill sample orchard issues):</div>')
             with gr.Row():
-                preset1_btn = gr.Button("🍃 Preset 1: Anthracnose Leaf Lesions", size="sm", variant="secondary")
-                preset2_btn = gr.Button("🥭 Preset 2: Fruit Fly Soft Spot", size="sm", variant="secondary")
-                preset3_btn = gr.Button("🌫️ Preset 3: Low-Light Blurry Canopy", size="sm", variant="secondary")
+                preset1_btn = gr.Button("Preset 1: Anthracnose Leaf Lesions", size="sm", variant="secondary")
+                preset2_btn = gr.Button("Preset 2: Fruit Fly Soft Spot", size="sm", variant="secondary")
+                preset3_btn = gr.Button("Preset 3: Low-Light Blurry Canopy", size="sm", variant="secondary")
 
             with gr.Row():
                 with gr.Column(scale=4, min_width=300, elem_id="report-panel", variant="panel"):
                     gr.HTML(
                         '<div class="section-head">'
-                        '<h3>📷 Field Evidence Capture</h3>'
+                        '<h3>Field Evidence Capture</h3>'
                         '<p>Upload a high-resolution leaf or fruit photo with orchard block details.</p>'
                         '</div>'
                     )
@@ -843,28 +877,28 @@ def build_app(service):
                     location = gr.Textbox(label="Orchard Block / Tree Tag", placeholder="e.g. Block A / Tree 18", max_length=160)
                     part = gr.Radio(["Leaf", "Fruit", "Other / uncertain"], value="Leaf", label="Target Inspection Subject")
                     observation = gr.Textbox(label="Worker Observations & Symptoms", placeholder="Describe visual symptoms, onset time, or nearby trees...", lines=3, max_length=2000)
-                    send = gr.Button("⚡ Analyze Inspection with Vision AI →", variant="primary", size="lg")
-                    gr.HTML('<p class="help-line">🔒 Evidence processed securely via Qwen3-VL on Colab runtime.</p>')
+                    send = gr.Button("Analyze Inspection with Vision AI →", variant="primary", size="lg")
+                    gr.HTML('<p class="help-line">Evidence processed securely via Qwen3-VL on Colab runtime.</p>')
 
                 with gr.Column(scale=6, min_width=320, elem_id="brief-panel", variant="panel"):
                     gr.HTML(
                         '<div class="section-head">'
-                        '<h3>📊 AI Agronomic Inspection Brief</h3>'
+                        '<h3>AI Agronomic Inspection Brief</h3>'
                         '<p>Multimodal vision analysis, evidence triage, and open questions.</p>'
                         '</div>'
                     )
                     brief = gr.HTML(empty_brief("Inspection Brief Ready for Input", "Upload a leaf or fruit photo, fill field notes or pick a demo scenario, then click Analyze Inspection."))
                     
-                    with gr.Accordion("💬 Answer AI Follow-Up Questions / Add Evidence", open=False):
+                    with gr.Accordion("Answer AI Follow-Up Questions / Add Evidence", open=False):
                         answer = gr.Textbox(label="Worker Responses or Additional Observations", placeholder="Enter answers to Scout's follow-up questions...", lines=2, max_length=2000)
-                        update = gr.Button("🔄 Re-evaluate Brief with Follow-Up Data", variant="secondary")
+                        update = gr.Button("Re-evaluate Brief with Follow-Up Data", variant="secondary")
                     
-                    gr.HTML('<p class="help-line">💡 Grounded with ICAR-CISH & NHB Mango Cultivation Standards.</p>')
+                    gr.HTML('<p class="help-line">Grounded with ICAR-CISH & NHB Mango Cultivation Standards.</p>')
 
-        with gr.Tab("📁 Orchard Case Library"):
+        with gr.Tab("Orchard Case Library"):
             gr.HTML(
                 '<div class="section-head">'
-                '<h3>📁 Central Orchard Case Management</h3>'
+                '<h3>Central Orchard Case Management</h3>'
                 '<p>Audit submitted field reports, track inspection statuses, and confirm agronomist reviews.</p>'
                 '</div>'
             )
@@ -873,24 +907,24 @@ def build_app(service):
                 with gr.Column(scale=4, min_width=280, elem_id="library-panel", variant="panel"):
                     picker = gr.Dropdown(choices=choices(), label="Select Saved Case Record", info="Pick a case from the database to inspect details.")
                     with gr.Row():
-                        refresh = gr.Button("🔄 Refresh List", size="sm")
-                        load = gr.Button("👁️ Open Selected Case", variant="primary", size="sm")
+                        refresh = gr.Button("Refresh List", size="sm")
+                        load = gr.Button("Open Selected Case", variant="primary", size="sm")
                     manager_photo = gr.Image(type="pil", label="Submitted Evidence Photo", interactive=False, height=240)
-                    reviewed = gr.Button("✅ Mark Case as Reviewed", variant="secondary")
-                    gr.HTML('<p class="help-line">Auditing records records manager validation without replacing certified agronomic diagnosis.</p>')
+                    reviewed = gr.Button("Mark Case as Reviewed", variant="secondary")
+                    gr.HTML('<p class="help-line">Auditing records manager validation without replacing certified agronomic diagnosis.</p>')
 
                 with gr.Column(scale=6, min_width=320, elem_id="case-panel", variant="panel"):
                     manager_brief = gr.HTML(empty_brief("Select a Case Record", "Choose a case from the dropdown on the left and click 'Open Selected Case' to inspect."))
-                    with gr.Accordion("💬 Append Evidence / Re-analyze Case", open=False):
+                    with gr.Accordion("Append Evidence / Re-analyze Case", open=False):
                         manager_answer = gr.Textbox(label="Additional Evidence / Follow-up Notes", max_length=2000)
-                        manager_retry = gr.Button("🔄 Update Case Record", variant="secondary")
-                    with gr.Accordion("🔍 Raw Inspection JSON & Audit Log", open=False):
+                        manager_retry = gr.Button("Update Case Record", variant="secondary")
+                    with gr.Accordion("Raw Inspection JSON & Audit Log", open=False):
                         record = gr.JSON()
 
-        with gr.Tab("⚡ Architecture & Knowledge"):
+        with gr.Tab("Architecture & Knowledge"):
             gr.Markdown(
                 """
-### 🏗️ Hapus Scout System Architecture
+### Hapus Scout System Architecture
 
 ```
   ┌───────────────────────────┐
@@ -919,7 +953,7 @@ def build_app(service):
 
 ---
 
-### 🛡️ Enterprise Guardrails & Safety Design
+### Enterprise Guardrails & Safety Design
 1. **Separation of Evidence vs Explanation**: Visual symptoms are kept strictly distinct from unconfirmed hypotheses.
 2. **Anti-Hallucination Constraints**: Model refuses to make predictions when photo quality is unclear or irrelevant.
 3. **Agronomic Scope Limits**: Zero automated chemical prescriptions, dosage calculations, or yield guarantees.
@@ -927,7 +961,7 @@ def build_app(service):
 
 ---
 
-### 📚 Grounded Reference Documents
+### Grounded Reference Documents
 """
                 + "\n".join(f'- **[{r["title"]}]({r["url"]})**: {r["scope"]}' for r in REFERENCES)
             )
@@ -959,11 +993,14 @@ def main():
         print("Loading Qwen from the configured model folder; first startup can take several minutes.", flush=True)
         model.load()
     service = ScoutService(CaseStore(os.environ.get("SCOUT_DATA_DIR", "data/cases")), model)
+    
+    # ALWAYS enable authentication when sharing, using memorable default credentials
     auth = None
-    if args.share and os.environ.get("SCOUT_REQUIRE_AUTH"):
-        password = os.environ.get("SCOUT_PASSWORD") or secrets.token_urlsafe(12)
+    if args.share:
+        password = os.environ.get("SCOUT_PASSWORD") or "scout123"
         print(f"Demo login: scout | Password: {password}", flush=True)
         auth = ("scout", password)
+        
     build_app(service).launch(share=args.share, auth=auth, server_name="127.0.0.1", max_file_size="10mb", show_error=False)
 
 
