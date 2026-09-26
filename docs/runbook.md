@@ -7,6 +7,10 @@ The launcher first checks the existing layout `MyDrive/Hapus More AI/models/mode
 
 ## Troubleshooting
 
+Startup now forwards child-process stdout and stderr into the notebook. It prints dependency, file-validation, GPU-loading and interface-launch stages, with a waiting message after 30 seconds without child output. A waiting message means the process is alive, not that model loading is making progress. The cell continues running while the app serves requests; look for the Gradio URL rather than waiting for execution to finish.
+
+If an older launcher stops visibly at "Model found", stop that cell once and rerun the updated launcher in the same runtime. Do not delete the runtime: downloaded temporary weights can be reused. Existing older child processes may survive interruption; if a rerun reports GPU memory or port conflicts, inspect and stop the old Scout process before retrying.
+
 If the minimal `drive.mount('/content/drive')` command raises `credential propagation was unsuccessful`, authentication is failing before Scout examines model files. A missing model folder would be a later, different error. Do not infer model ownership or the exact failed OAuth scope from this message alone.
 
 To keep building, reopen the latest launcher and set `USE_DRIVE = False`. It downloads the public model through Hugging Face to temporary Colab disk, without mounting Drive. Allow time for the multi-gigabyte download. No cases persist after runtime deletion. This is an explicit alternate mode, not an automatic fallback or a fix for Google's authentication problem.

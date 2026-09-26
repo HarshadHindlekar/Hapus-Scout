@@ -1,5 +1,7 @@
 # Validation record
 
+Startup diagnostics: added real short-lived subprocess checks for stdout/stderr forwarding and nonzero-exit propagation. GPU and share-link startup still need live verification. No timing guarantee is claimed.
+
 Drive-free recovery: all eight tests passed, including two checks verifying that temporary mode skips google.colab authentication and sets temporary storage, while Drive authentication failures stop before installation/model work. Launcher syntax and Ruff checks passed. Actual public-model download and GPU inference remain pending.
 
 ## Automated checks

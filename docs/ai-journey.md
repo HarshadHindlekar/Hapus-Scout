@@ -1,5 +1,9 @@
 # Hapus Scout AI journey
 
+## 2026-09-26 — Visible startup diagnostics
+
+An active Colab session showed only the parent launcher's "Model found" line. Replaced inherited subprocess output with explicit stdout/stderr streaming through notebook stdout, unbuffered child Python, staged GPU-loading messages and a 30-second process-alive message. This resolves a diagnostics gap; it does not establish why the user's current startup is slow or why Drive authentication failed. Added tests for forwarding both streams and propagating process failures.
+
 ## 2026-09-26 — Drive authentication recovery
 
 The user's standalone drive.mount test failed with the same credential propagation error, isolating the immediate blocker to Colab Drive authorization. Added an explicit Drive-free startup option that downloads the same public model into temporary Colab storage, plus a visible case-persistence notice. Drive mode remains the default. The launcher now executes the refreshed bootstrap through runpy so reruns do not reuse a stale imported launch function. This does not claim to repair OAuth or verify GPU inference.

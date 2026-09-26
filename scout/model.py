@@ -38,11 +38,13 @@ class VisionModel:
         self.lock = Lock()
 
     def load(self):
+        print("Importing GPU inference libraries...", flush=True)
         import torch
         from transformers import AutoProcessor, BitsAndBytesConfig, Qwen3VLForConditionalGeneration
         if not torch.cuda.is_available():
             raise RuntimeError("GPU unavailable. In Colab choose Runtime > Change runtime type > T4 GPU.")
         path = validate_model(os.environ["SCOUT_MODEL_PATH"])
+        print(f"GPU detected: {torch.cuda.get_device_name(0)}. Loading image processor...", flush=True)
         # Processor assets are small; recover incomplete Drive processor bundles from the official model.
         try:
             processor = AutoProcessor.from_pretrained(str(path), local_files_only=True)
@@ -54,8 +56,10 @@ class VisionModel:
             kwargs["quantization_config"] = BitsAndBytesConfig(
                 load_in_4bit=True, bnb_4bit_quant_type="nf4",
                 bnb_4bit_compute_dtype=torch.float16, bnb_4bit_use_double_quant=True)
+        print("Loading weight shards and preparing quantized model on GPU...", flush=True)
         model = Qwen3VLForConditionalGeneration.from_pretrained(str(path), **kwargs).eval()
         self.processor, self.model = processor, model
+        print("Step 3/3: Qwen loaded. Starting the interface and creating the demo link...", flush=True)
 
     def generate(self, image, prompt):
         import torch
