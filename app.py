@@ -145,11 +145,21 @@ INDEX_HTML = """<!DOCTYPE html>
                             <h1 class="text-lg font-extrabold text-white tracking-tight">Hapus Scout™</h1>
                             <span class="px-2 py-0.5 rounded-full text-[9px] font-black uppercase tracking-wider bg-brand-500/20 text-brand-300 border border-brand-500/30">Enterprise</span>
                         </div>
-                        <p class="text-[11px] text-slate-400 font-medium hidden sm:block">Alphonso Orchard Multimodal Inspection Platform</p>
+                        <p data-i18n="app_sub" class="text-[11px] text-slate-400 font-medium hidden sm:block">Alphonso Orchard Multimodal Inspection Platform</p>
                     </div>
                 </div>
                 
                 <div class="flex items-center gap-3">
+                    <!-- MULTILINGUAL LANGUAGE SELECTOR -->
+                    <div class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-900 border border-emerald-500/40 text-xs shadow-md shadow-emerald-500/10">
+                        <i class="fa-solid fa-globe text-emerald-400"></i>
+                        <select id="lang-select" onchange="changeLanguage(this.value)" class="bg-transparent text-slate-200 text-xs font-extrabold focus:outline-none cursor-pointer">
+                            <option value="en" class="bg-slate-900 text-white">English (EN)</option>
+                            <option value="mr" class="bg-slate-900 text-white">मराठी (MR)</option>
+                            <option value="hi" class="bg-slate-900 text-white">हिंदी (HI)</option>
+                        </select>
+                    </div>
+
                     <div class="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-900 border border-slate-800 text-xs">
                         <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
                         <span class="text-slate-300 font-medium">Qwen3-VL Active</span>
@@ -159,7 +169,7 @@ INDEX_HTML = """<!DOCTYPE html>
                     </div>
                     <button onclick="handleLogout()" class="px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-800 text-xs font-semibold transition-colors flex items-center gap-2">
                         <i class="fa-solid fa-sign-out-alt"></i>
-                        <span class="hidden sm:inline">Logout</span>
+                        <span data-i18n="logout" class="hidden sm:inline">Logout</span>
                     </button>
                 </div>
             </div>
@@ -212,15 +222,15 @@ INDEX_HTML = """<!DOCTYPE html>
             <div class="flex items-center gap-2 border-b border-slate-800 pb-1">
                 <button onclick="switchTab('tab-new')" id="nav-tab-new" class="tab-btn px-4 py-2.5 rounded-xl font-bold text-sm transition-all flex items-center gap-2 bg-brand-600 text-white shadow-md shadow-brand-600/30">
                     <i class="fa-solid fa-bolt"></i>
-                    <span>New Inspection</span>
+                    <span data-i18n="nav_new">New Inspection</span>
                 </button>
                 <button onclick="switchTab('tab-cases')" id="nav-tab-cases" class="tab-btn px-4 py-2.5 rounded-xl font-bold text-sm transition-all flex items-center gap-2 text-slate-400 hover:text-slate-200 hover:bg-slate-900">
                     <i class="fa-solid fa-folder-open"></i>
-                    <span>Orchard Case Library</span>
+                    <span data-i18n="nav_cases">Orchard Case Library</span>
                 </button>
                 <button onclick="switchTab('tab-arch')" id="nav-tab-arch" class="tab-btn px-4 py-2.5 rounded-xl font-bold text-sm transition-all flex items-center gap-2 text-slate-400 hover:text-slate-200 hover:bg-slate-900 hidden sm:flex">
                     <i class="fa-solid fa-diagram-project"></i>
-                    <span>Architecture & Safety</span>
+                    <span data-i18n="nav_arch">Architecture & Safety</span>
                 </button>
             </div>
 
@@ -231,16 +241,16 @@ INDEX_HTML = """<!DOCTYPE html>
                 <div class="glass-panel p-4 rounded-2xl border border-slate-800 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
                     <div class="flex items-center gap-2 text-xs font-bold text-slate-300 uppercase tracking-wider">
                         <i class="fa-solid fa-wand-magic-sparkles text-amber-400"></i>
-                        <span>Quick Demo Presets:</span>
+                        <span data-i18n="preset_label">Quick Demo Presets:</span>
                     </div>
                     <div class="flex flex-wrap gap-2 w-full sm:w-auto">
-                        <button onclick="applyPreset(1)" class="px-3 py-1.5 rounded-lg bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 text-emerald-300 text-xs font-semibold transition-colors flex items-center gap-1.5">
+                        <button onclick="applyPreset(1)" data-i18n="preset_1" class="px-3 py-1.5 rounded-lg bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 text-emerald-300 text-xs font-semibold transition-colors flex items-center gap-1.5">
                             🍃 Preset 1: Anthracnose Spots
                         </button>
-                        <button onclick="applyPreset(2)" class="px-3 py-1.5 rounded-lg bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 text-amber-300 text-xs font-semibold transition-colors flex items-center gap-1.5">
+                        <button onclick="applyPreset(2)" data-i18n="preset_2" class="px-3 py-1.5 rounded-lg bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 text-amber-300 text-xs font-semibold transition-colors flex items-center gap-1.5">
                             🥭 Preset 2: Fruit Fly Soft Puncture
                         </button>
-                        <button onclick="applyPreset(3)" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold transition-colors flex items-center gap-1.5">
+                        <button onclick="applyPreset(3)" data-i18n="preset_3" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold transition-colors flex items-center gap-1.5">
                             🌫️ Preset 3: Low-Light Canopy
                         </button>
                     </div>
@@ -254,22 +264,22 @@ INDEX_HTML = """<!DOCTYPE html>
                         <div class="border-b border-slate-800 pb-4">
                             <h3 class="text-lg font-bold text-white flex items-center gap-2">
                                 <i class="fa-solid fa-camera text-brand-400"></i>
-                                <span>Field Evidence Capture</span>
+                                <span data-i18n="field_title">Field Evidence Capture</span>
                             </h3>
-                            <p class="text-xs text-slate-400 mt-1">Upload high-res photo with orchard tree context.</p>
+                            <p data-i18n="field_sub" class="text-xs text-slate-400 mt-1">Upload high-res photo with orchard tree context.</p>
                         </div>
 
                         <!-- PHOTO DROPZONE -->
                         <div>
-                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">Leaf / Fruit Photo Evidence</label>
+                            <label data-i18n="photo_label" class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">Leaf / Fruit Photo Evidence</label>
                             <div id="dropzone" onclick="document.getElementById('file-input').click()" class="border-2 border-dashed border-brand-500/40 hover:border-brand-400 bg-brand-950/20 rounded-2xl p-6 text-center cursor-pointer transition-all duration-200 group">
                                 <input type="file" id="file-input" accept="image/*" class="hidden" onchange="handleFileSelect(event)">
                                 <div id="upload-prompt" class="space-y-2">
                                     <div class="w-12 h-12 mx-auto rounded-full bg-brand-500/10 text-brand-400 flex items-center justify-center text-xl group-hover:scale-110 transition-transform">
                                         <i class="fa-solid fa-cloud-arrow-up"></i>
                                     </div>
-                                    <div class="text-xs font-bold text-white">Click or drag photo here</div>
-                                    <div class="text-[11px] text-slate-400">Supports JPG, PNG, WEBP up to 10MB</div>
+                                    <div data-i18n="upload_title" class="text-xs font-bold text-white">Click or drag photo here</div>
+                                    <div data-i18n="upload_sub" class="text-[11px] text-slate-400">Supports JPG, PNG, WEBP up to 10MB</div>
                                 </div>
                                 <img id="image-preview" class="hidden max-h-48 mx-auto rounded-xl object-contain shadow-lg">
                             </div>
@@ -277,29 +287,29 @@ INDEX_HTML = """<!DOCTYPE html>
 
                         <!-- ORCHARD LOCATION -->
                         <div>
-                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">Tree Tag / Orchard Block</label>
-                            <input type="text" id="input-location" placeholder="e.g. Block A / Row 4 / Tree 18" class="w-full px-4 py-3 rounded-xl glass-input text-sm">
+                            <label data-i18n="location_label" class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">Tree Tag / Orchard Block</label>
+                            <input type="text" id="input-location" data-i18n-placeholder="location_placeholder" placeholder="e.g. Block A / Row 4 / Tree 18" class="w-full px-4 py-3 rounded-xl glass-input text-sm">
                         </div>
 
                         <!-- SUBJECT TARGET RADIO TOGGLE -->
                         <div>
-                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">Inspection Subject Target</label>
+                            <label data-i18n="subject_label" class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">Inspection Subject Target</label>
                             <div class="grid grid-cols-3 gap-2">
                                 <label class="cursor-pointer">
                                     <input type="radio" name="part" value="Leaf" checked class="peer hidden">
-                                    <div class="py-2.5 px-3 rounded-xl bg-slate-900 border border-slate-800 text-slate-400 peer-checked:bg-brand-600 peer-checked:text-white peer-checked:border-brand-500 text-xs font-bold text-center transition-all">
+                                    <div data-i18n="part_leaf" class="py-2.5 px-3 rounded-xl bg-slate-900 border border-slate-800 text-slate-400 peer-checked:bg-brand-600 peer-checked:text-white peer-checked:border-brand-500 text-xs font-bold text-center transition-all">
                                         🍃 Leaf
                                     </div>
                                 </label>
                                 <label class="cursor-pointer">
                                     <input type="radio" name="part" value="Fruit" class="peer hidden">
-                                    <div class="py-2.5 px-3 rounded-xl bg-slate-900 border border-slate-800 text-slate-400 peer-checked:bg-brand-600 peer-checked:text-white peer-checked:border-brand-500 text-xs font-bold text-center transition-all">
+                                    <div data-i18n="part_fruit" class="py-2.5 px-3 rounded-xl bg-slate-900 border border-slate-800 text-slate-400 peer-checked:bg-brand-600 peer-checked:text-white peer-checked:border-brand-500 text-xs font-bold text-center transition-all">
                                         🥭 Fruit
                                     </div>
                                 </label>
                                 <label class="cursor-pointer">
                                     <input type="radio" name="part" value="Other / uncertain" class="peer hidden">
-                                    <div class="py-2.5 px-3 rounded-xl bg-slate-900 border border-slate-800 text-slate-400 peer-checked:bg-brand-600 peer-checked:text-white peer-checked:border-brand-500 text-xs font-bold text-center transition-all">
+                                    <div data-i18n="part_other" class="py-2.5 px-3 rounded-xl bg-slate-900 border border-slate-800 text-slate-400 peer-checked:bg-brand-600 peer-checked:text-white peer-checked:border-brand-500 text-xs font-bold text-center transition-all">
                                         ❓ Other
                                     </div>
                                 </label>
@@ -308,14 +318,14 @@ INDEX_HTML = """<!DOCTYPE html>
 
                         <!-- OBSERVATIONS TEXTAREA -->
                         <div>
-                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">Worker Symptoms & Observations</label>
-                            <textarea id="input-obs" rows="3" placeholder="Describe symptoms, onset timing, or nearby trees..." class="w-full p-4 rounded-xl glass-input text-sm resize-none"></textarea>
+                            <label data-i18n="obs_label" class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">Worker Symptoms & Observations</label>
+                            <textarea id="input-obs" data-i18n-placeholder="obs_placeholder" rows="3" placeholder="Describe symptoms, onset timing, or nearby trees..." class="w-full p-4 rounded-xl glass-input text-sm resize-none"></textarea>
                         </div>
 
                         <!-- SUBMIT BUTTON -->
                         <button onclick="submitInspection()" id="btn-submit" class="w-full py-4 px-6 rounded-xl bg-gradient-to-r from-brand-500 to-brand-600 hover:from-brand-600 hover:to-brand-700 text-white font-extrabold text-sm shadow-xl shadow-brand-500/30 transition-all duration-200 transform hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center gap-2">
                             <i class="fa-solid fa-bolt"></i>
-                            <span>ANALYZE INSPECTION WITH VISION AI</span>
+                            <span data-i18n="submit_btn">ANALYZE INSPECTION WITH VISION AI</span>
                         </button>
                     </div>
 
@@ -325,9 +335,9 @@ INDEX_HTML = """<!DOCTYPE html>
                             <div>
                                 <h3 class="text-lg font-bold text-white flex items-center gap-2">
                                     <i class="fa-solid fa-chart-pie text-brand-400"></i>
-                                    <span>AI Agronomic Inspection Brief</span>
+                                    <span data-i18n="brief_title">AI Agronomic Inspection Brief</span>
                                 </h3>
-                                <p class="text-xs text-slate-400 mt-1">Structured multimodal vision triage & evidence summary.</p>
+                                <p data-i18n="brief_sub" class="text-xs text-slate-400 mt-1">Structured multimodal vision triage & evidence summary.</p>
                             </div>
                             <div id="brief-status-tag" class="hidden">
                                 <span class="px-3 py-1 rounded-full text-xs font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40">● OPEN</span>
@@ -339,8 +349,8 @@ INDEX_HTML = """<!DOCTYPE html>
                             <div class="w-16 h-16 rounded-full bg-slate-900 text-brand-400 flex items-center justify-center text-2xl mb-4 shadow-inner">
                                 <i class="fa-solid fa-magnifying-glass"></i>
                             </div>
-                            <h4 class="text-base font-bold text-white mb-2">Inspection Brief Ready for Evidence</h4>
-                            <p class="text-xs text-slate-400 max-w-sm">Upload a photo, enter orchard notes or select a demo preset scenario on the left, then click Analyze Inspection.</p>
+                            <h4 data-i18n="empty_title" class="text-base font-bold text-white mb-2">Inspection Brief Ready for Evidence</h4>
+                            <p data-i18n="empty_desc" class="text-xs text-slate-400 max-w-sm">Upload a photo, enter orchard notes or select a demo preset scenario on the left, then click Analyze Inspection.</p>
                         </div>
 
                         <!-- FUTURISTIC AGRICULTURE VISION AI SCANNER HUD -->
@@ -483,6 +493,158 @@ INDEX_HTML = """<!DOCTYPE html>
     <script>
         let selectedFileBase64 = null;
         let currentCaseId = null;
+        let currentLang = 'en';
+
+        const I18N_DICT = {
+            en: {
+                app_sub: "Alphonso Orchard Multimodal Inspection Platform",
+                nav_new: "New Inspection",
+                nav_cases: "Orchard Case Library",
+                nav_arch: "Architecture & Safety",
+                preset_label: "Quick Demo Presets:",
+                preset_1: "🍃 Preset 1: Anthracnose Spots",
+                preset_2: "🥭 Preset 2: Fruit Fly Soft Puncture",
+                preset_3: "🌫️ Preset 3: Low-Light Canopy",
+                field_title: "Field Evidence Capture",
+                field_sub: "Upload high-res photo with orchard tree context.",
+                photo_label: "Leaf / Fruit Photo Evidence",
+                upload_title: "Click or drag photo here",
+                upload_sub: "Supports JPG, PNG, WEBP up to 10MB",
+                location_label: "Tree Tag / Orchard Block",
+                location_placeholder: "e.g. Block A / Row 4 / Tree 18",
+                subject_label: "Inspection Subject Target",
+                part_leaf: "🍃 Leaf",
+                part_fruit: "🥭 Fruit",
+                part_other: "❓ Other",
+                obs_label: "Worker Symptoms & Observations",
+                obs_placeholder: "Describe symptoms, onset timing, or nearby trees...",
+                submit_btn: "ANALYZE INSPECTION WITH VISION AI",
+                brief_title: "AI Agronomic Inspection Brief",
+                brief_sub: "Structured multimodal vision triage & evidence summary.",
+                empty_title: "Inspection Brief Ready for Evidence",
+                empty_desc: "Upload a photo, enter orchard notes or select a demo preset scenario on the left, then click Analyze Inspection.",
+                guardrail: "Agronomic Guardrail: AI analysis supports triage. Certified agronomist/manager must verify before treatment.",
+                summary_hdr: "Executive Triage Summary:",
+                evidence_hdr: "Physical Evidence",
+                hypo_hdr: "Diagnostic Hypotheses",
+                questions_hdr: "Field Worker Questions",
+                checks_hdr: "Next Evidence Checks",
+                unconfirmed: "Unconfirmed",
+                quality: "📷 Quality:",
+                worker_note: "Worker Note:",
+                case_ref: "CASE REF:",
+                refresh_btn: "Refresh Database",
+                cases_title: "Orchard Case Database",
+                cases_sub: "Central audit log of submitted field inspection reports.",
+                mark_reviewed: "Mark as Reviewed",
+                logout: "Logout"
+            },
+            mr: {
+                app_sub: "हापूस आंबा बाग बहुभाषिक एआय रोग शोध प्रणाली (कोकण)",
+                nav_new: "नवीन बाग तपासणी",
+                nav_cases: "बाग केस ग्रंथालय",
+                nav_arch: "प्रणाली रचना व सुरक्षा",
+                preset_label: "त्वरित नमुना नमुने:",
+                preset_1: "🍃 नमुना १: करपा (अँथ्रॅक्नोस) डाग",
+                preset_2: "🥭 नमुना २: फळमाशीचे मऊ छिद्र",
+                preset_3: "🌫️ नमुना ३: कमी प्रकाशातील पाने",
+                field_title: "शेतकऱ्यांची लक्षण नोंदणी",
+                field_sub: "झाडाचा व फळाचा सुस्पष्ट फोटो अपलोड करा.",
+                photo_label: "पाने / फळांचे फोटो पुरावे",
+                upload_title: "इथे फोटो अपलोड करण्यासाठी क्लिक करा",
+                upload_sub: "JPG, PNG, WEBP फोटो १० MB पर्यंत",
+                location_label: "झाड क्र. / बाग विभाग (ब्लॉक)",
+                location_placeholder: "उदा. ब्लॉक अ / रांग ४ / झाड १८",
+                subject_label: "तपासणीचा मुख्य भाग",
+                part_leaf: "🍃 पान",
+                part_fruit: "🥭 फळ",
+                part_other: "❓ इतर",
+                obs_label: "कामगार / शेतकऱ्यांचे निरीक्षण व लक्षणे",
+                obs_placeholder: "पानांवरील किंवा फळांवरील लक्षणे, डाग, पाऊस किंवा हवामानाची माहिती लिहा...",
+                submit_btn: "व्हिजन AI द्वारे रोगाची तपासणी करा",
+                brief_title: "एआय कृषी रोग तपासणी अहवाल",
+                brief_sub: "संरचित बहुभाषिक एआय वर्गीकरण आणि पुरावा सारांश.",
+                empty_title: "तपासणी अहवाल तयार आहे",
+                empty_desc: "डावीकडे फोटो अपलोड करा किंवा नमुना निवडा, नंतर तपासणी करा बटणावर क्लिक करा.",
+                guardrail: "कृषी सुरक्षा नियम: हे AI विश्लेषण केवळ निदानास मदत करते. उपचारापूर्वी अधिकृत कृषी तज्ञांचा सल्ला आवश्यक आहे.",
+                summary_hdr: "कार्यकारी रोग सारांश:",
+                evidence_hdr: "भौतिक लक्षणे व पुरावे",
+                hypo_hdr: "संभाव्य रोग / निदान अंदाज",
+                questions_hdr: "शेतकऱ्यांसाठी विचारण्याचे प्रश्न",
+                checks_hdr: "पुढील तपासणीची पावले",
+                unconfirmed: "अपुष्टीकृत",
+                quality: "📷 फोटो गुणवत्ता:",
+                worker_note: "कामगाराची नोंद:",
+                case_ref: "केस संदर्भ:",
+                refresh_btn: "डेटाबेस अपडेट करा",
+                cases_title: "बाग केस डेटाबेस",
+                cases_sub: "सबमिट केलेल्या सर्व शेत तपासणी अहवालांची मध्यवर्ती नोंद.",
+                mark_reviewed: "तपासले म्हणून चिन्हांकित करा",
+                logout: "बाहेर पडा"
+            },
+            hi: {
+                app_sub: "हापुस आम बाग बहुभाषी एआई रोग निदान प्लेटफॉर्म",
+                nav_new: "नया बाग निरीक्षण",
+                nav_cases: "बाग केस पुस्तकालय",
+                nav_arch: "प्रणाली वास्तुकला और सुरक्षा",
+                preset_label: "त्वरित डेमो नमूने:",
+                preset_1: "🍃 नमूना १: एंथ्रेक्नोज (करपा) धब्बे",
+                preset_2: "🥭 नमूना २: फल मक्खी का डंक",
+                preset_3: "🌫️ नमूना ३: कम रोशनी वाले पत्ते",
+                field_title: "खेत लक्षण कैप्चर",
+                field_sub: "पेड़ और फल के संदर्भ के साथ फोटो अपलोड करें।",
+                photo_label: "पत्ती / फल फोटो प्रमाण",
+                upload_title: "यहाँ क्लिक करके फोटो अपलोड करें",
+                upload_sub: "JPG, PNG, WEBP फोटो 10MB तक",
+                location_label: "पेड़ संख्या / बाग ब्लॉक",
+                location_placeholder: "जैसे: ब्लॉक ए / पंक्ति ४ / पेड़ १८",
+                subject_label: "निरीक्षण का विषय",
+                part_leaf: "🍃 पत्ती",
+                part_fruit: "🥭 फल",
+                part_other: "❓ अन्य",
+                obs_label: "किसान / कार्यकर्ता के लक्षण और अवलोकन",
+                obs_placeholder: "पत्तियों या फलों पर धब्बे, मौसम और लक्षणों का विवरण लिखें...",
+                submit_btn: "विज़न AI से निरीक्षण की जाँच करें",
+                brief_title: "एआई कृषि रोग निरीक्षण रिपोर्ट",
+                brief_sub: "संरचित बहुभाषी एआई वर्गीकरण और साक्ष्य सारांश।",
+                empty_title: "निरीक्षण रिपोर्ट तैयार है",
+                empty_desc: "बाईं ओर फोटो अपलोड करें या नमूना चुनें, फिर निरीक्षण जाँच पर क्लिक करें।",
+                guardrail: "कृषि सुरक्षा निर्देश: यह AI विश्लेषण केवल प्राथमिक सहायता है। उपचार से पहले प्रमाणित कृषि विशेषज्ञ से पुष्टि करें।",
+                summary_hdr: "काल्पनिक विश्लेषण सारांश:",
+                evidence_hdr: "भौतिक लक्षण और साक्ष्य",
+                hypo_hdr: "संभावित रोग और निदान",
+                questions_hdr: "किसानों के लिए फॉलो-अप प्रश्न",
+                checks_hdr: "अगले निरीक्षण कदम",
+                unconfirmed: "अपुष्ट",
+                quality: "📷 फोटो गुणवत्ता:",
+                worker_note: "कार्यकर्ता टिप्पणी:",
+                case_ref: "केस संदर्भ:",
+                refresh_btn: "डेटाबेस रीफ्रेश करें",
+                cases_title: "बाग केस डेटाबेस",
+                cases_sub: "दर्ज की गई सभी कृषि निरीक्षण रिपोर्टों का केंद्रीय लॉग।",
+                mark_reviewed: "समीक्षित के रूप में चिह्नित करें",
+                logout: "लॉग आउट"
+            }
+        };
+
+        function changeLanguage(lang) {
+            currentLang = lang;
+            const dict = I18N_DICT[lang] || I18N_DICT['en'];
+            
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (dict[key]) el.innerHTML = dict[key];
+            });
+
+            document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+                const key = el.getAttribute('data-i18n-placeholder');
+                if (dict[key]) el.placeholder = dict[key];
+            });
+            
+            if (window.lastCaseData) {
+                renderBrief(window.lastCaseData);
+            }
+        }
 
         document.addEventListener('DOMContentLoaded', () => {
             if (localStorage.getItem('scout_auth') === 'true') {
@@ -873,23 +1035,25 @@ INDEX_HTML = """<!DOCTYPE html>
         }
 
         function renderBrief(c) {
+            window.lastCaseData = c;
             stopAgriLoader();
             document.getElementById('brief-loading').classList.add('hidden');
             document.getElementById('brief-content').classList.remove('hidden');
             
+            const dict = I18N_DICT[currentLang] || I18N_DICT['en'];
             const rev = c.revisions && c.revisions.length > 0 ? c.revisions[c.revisions.length - 1] : null;
             const res = rev ? rev.analysis : null;
 
             let html = `
                 <div class="glass-card p-5 rounded-2xl border border-emerald-500/20 space-y-4">
                     <div class="flex items-center justify-between">
-                        <span class="text-[10px] font-mono font-bold tracking-widest text-slate-400 bg-slate-900 px-2.5 py-1 rounded-md">CASE REF: ${c.id.substring(0,8)}</span>
+                        <span class="text-[10px] font-mono font-bold tracking-widest text-slate-400 bg-slate-900 px-2.5 py-1 rounded-md">${dict.case_ref} ${c.id.substring(0,8)}</span>
                         <span class="text-xs font-bold ${c.status === 'reviewed' ? 'text-emerald-400 bg-emerald-500/10 border-emerald-500/30' : 'text-amber-400 bg-amber-500/10 border-amber-500/30'} border px-3 py-1 rounded-full">● ${c.status.toUpperCase()}</span>
                     </div>
                     <div>
                         <h4 class="text-xl font-extrabold text-white">📍 ${c.report.location} <span class="text-xs text-slate-400 font-normal">(${c.report.part})</span></h4>
                         <div class="mt-2 text-xs text-slate-300 bg-slate-900/60 p-3 rounded-xl border-l-4 border-emerald-500">
-                            <strong>Worker Note:</strong> "${c.report.observation}"
+                            <strong>${dict.worker_note}</strong> "${c.report.observation}"
                         </div>
                     </div>
             `;
@@ -897,29 +1061,29 @@ INDEX_HTML = """<!DOCTYPE html>
             if (res) {
                 html += `
                     <div class="flex items-center justify-between text-xs border-t border-slate-800 pt-3">
-                        <span class="px-2.5 py-1 rounded-md text-[11px] font-bold ${res.image_quality === 'usable' ? 'bg-emerald-500/10 text-emerald-300 border border-emerald-500/30' : 'bg-amber-500/10 text-amber-300 border border-amber-500/30'}">📷 Quality: ${res.image_quality.toUpperCase()}</span>
+                        <span class="px-2.5 py-1 rounded-md text-[11px] font-bold ${res.image_quality === 'usable' ? 'bg-emerald-500/10 text-emerald-300 border border-emerald-500/30' : 'bg-amber-500/10 text-amber-300 border border-amber-500/30'}">${dict.quality} ${res.image_quality.toUpperCase()}</span>
                         <span class="text-[11px] text-slate-400">${rev.model} · ${rev.seconds}s latency</span>
                     </div>
 
                     <div class="bg-gradient-to-r from-emerald-950/40 to-green-900/20 border border-emerald-500/30 p-4 rounded-xl text-xs text-emerald-200">
-                        <strong>Executive Triage Summary:</strong><br>${res.summary}
+                        <strong>${dict.summary_hdr}</strong><br>${res.summary}
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
                         <div class="glass-card p-4 rounded-xl border-l-4 border-emerald-500 space-y-1">
-                            <div class="font-bold text-white flex items-center gap-1.5"><i class="fa-solid fa-magnifying-glass text-emerald-400"></i> Physical Evidence</div>
+                            <div class="font-bold text-white flex items-center gap-1.5"><i class="fa-solid fa-magnifying-glass text-emerald-400"></i> ${dict.evidence_hdr}</div>
                             <ul class="list-disc pl-4 text-slate-300 space-y-1">${res.observations.map(o => `<li>${o}</li>`).join('') || '<li>None isolated</li>'}</ul>
                         </div>
                         <div class="glass-card p-4 rounded-xl border-l-4 border-amber-500 space-y-1">
-                            <div class="font-bold text-white flex items-center gap-1.5"><i class="fa-solid fa-lightbulb text-amber-400"></i> Diagnostic Hypotheses <span class="text-[9px] bg-amber-500/20 text-amber-300 px-1.5 py-0.5 rounded">Unconfirmed</span></div>
+                            <div class="font-bold text-white flex items-center gap-1.5"><i class="fa-solid fa-lightbulb text-amber-400"></i> ${dict.hypo_hdr} <span class="text-[9px] bg-amber-500/20 text-amber-300 px-1.5 py-0.5 rounded">${dict.unconfirmed}</span></div>
                             <ul class="list-disc pl-4 text-slate-300 space-y-1">${res.possible_explanations.map(e => `<li>${e}</li>`).join('') || '<li>Insufficient evidence</li>'}</ul>
                         </div>
                         <div class="glass-card p-4 rounded-xl border-l-4 border-blue-500 space-y-1">
-                            <div class="font-bold text-white flex items-center gap-1.5"><i class="fa-solid fa-circle-question text-blue-400"></i> Field Worker Questions</div>
+                            <div class="font-bold text-white flex items-center gap-1.5"><i class="fa-solid fa-circle-question text-blue-400"></i> ${dict.questions_hdr}</div>
                             <ul class="list-disc pl-4 text-slate-300 space-y-1">${res.questions.map(q => `<li>${q}</li>`).join('') || '<li>None required</li>'}</ul>
                         </div>
                         <div class="glass-card p-4 rounded-xl border-l-4 border-teal-500 space-y-1">
-                            <div class="font-bold text-white flex items-center gap-1.5"><i class="fa-solid fa-clipboard-check text-teal-400"></i> Next Evidence Checks</div>
+                            <div class="font-bold text-white flex items-center gap-1.5"><i class="fa-solid fa-clipboard-check text-teal-400"></i> ${dict.checks_hdr}</div>
                             <ul class="list-disc pl-4 text-slate-300 space-y-1">${res.next_checks.map(n => `<li>${n}</li>`).join('') || '<li>Standard monitoring</li>'}</ul>
                         </div>
                     </div>
@@ -929,7 +1093,7 @@ INDEX_HTML = """<!DOCTYPE html>
             html += `
                 <div class="p-3 bg-amber-500/10 border border-amber-500/30 rounded-xl text-[11px] text-amber-300 flex items-start gap-2">
                     <i class="fa-solid fa-triangle-exclamation text-amber-400 mt-0.5"></i>
-                    <div><strong>Agronomic Guardrail:</strong> AI analysis supports triage. Certified agronomist/manager must verify before treatment.</div>
+                    <div>${dict.guardrail}</div>
                 </div>
             </div>`;
 
