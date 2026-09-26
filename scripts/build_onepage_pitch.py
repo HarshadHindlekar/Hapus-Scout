@@ -1,7 +1,7 @@
 """Generates official 1-Page Single-Slide Pitch Presentation (.pptx and .pdf).
 
 Strictly 1 slide / 1 page covering the 4 Core Business Problems, Costing, Performance, and Scalability.
-Optimized spacing and paragraph formatting to prevent text collisions.
+Generous spacing layout with zero text collisions.
 """
 import json
 from pathlib import Path
@@ -15,84 +15,84 @@ tmp_dir.mkdir(parents=True, exist_ok=True)
 out_pdf_dir.mkdir(parents=True, exist_ok=True)
 out_pptx_dir.mkdir(parents=True, exist_ok=True)
 
-# 1-Page Slide Content definition (1280 x 720 geometry coordinate system with generous vertical padding)
+# 1-Page Slide Content definition (1280 x 720 geometry coordinate system with 40+ px vertical gaps)
 CONTENT = [
     {
-        "x": 60, "y": 30, "w": 1160, "h": 35,
-        "size": 26, "bold": True, "color": "#173F2E",
+        "x": 60, "y": 30, "w": 1160, "h": 32,
+        "size": 24, "bold": True, "color": "#173F2E",
         "text": "Hapus Scout™ Enterprise — 1-Page Executive Pitch"
     },
     {
-        "x": 60, "y": 68, "w": 1160, "h": 22,
-        "size": 13, "bold": False, "color": "#435749",
+        "x": 60, "y": 64, "w": 1160, "h": 20,
+        "size": 12, "bold": False, "color": "#435749",
         "text": "Multimodal Vision AI Orchard Inspection & Agronomic Evidence Triage Platform for Alphonso Mangoes"
     },
     # Box 1: Problem 1
     {
-        "x": 60, "y": 105, "w": 550, "h": 20,
-        "size": 14, "bold": True, "color": "#173F2E",
+        "x": 60, "y": 100, "w": 550, "h": 18,
+        "size": 13, "bold": True, "color": "#173F2E",
         "text": "1. Delayed Disease Triage & Crop Loss"
     },
     {
-        "x": 60, "y": 128, "w": 550, "h": 110,
-        "size": 10.5, "bold": False, "color": "#273D30",
+        "x": 60, "y": 120, "w": 550, "h": 85,
+        "size": 9.5, "bold": False, "color": "#273D30",
         "text": "• Problem: Alphonso mangoes suffer 35-40% annual crop loss from unmonitored pest outbreaks.\n• Solution: Sub-6.5s vision AI triage converts worker photos into actionable agronomic briefs.\n• ROI & Scale: Replaces ₹1,500/visit fees; enables 1 agronomist to oversee 500+ orchard blocks."
     },
     # Box 2: Problem 2
     {
-        "x": 670, "y": 105, "w": 550, "h": 20,
-        "size": 14, "bold": True, "color": "#173F2E",
+        "x": 670, "y": 100, "w": 550, "h": 18,
+        "size": 13, "bold": True, "color": "#173F2E",
         "text": "2. Field Worker Language Barrier"
     },
     {
-        "x": 670, "y": 128, "w": 550, "h": 110,
-        "size": 10.5, "bold": False, "color": "#273D30",
+        "x": 670, "y": 120, "w": 550, "h": 85,
+        "size": 9.5, "bold": False, "color": "#273D30",
         "text": "• Problem: Over 85% of Konkan orchard workers are native Marathi or Hindi speakers.\n• Solution: Multilingual UI (EN, MR, HI) dynamically aligns local terms (Karpa) to AI tensors.\n• ROI & Scale: Zero worker training costs; seamless adoption across regional labor pools."
     },
     # Box 3: Problem 3
     {
-        "x": 60, "y": 255, "w": 550, "h": 20,
-        "size": 14, "bold": True, "color": "#173F2E",
+        "x": 60, "y": 230, "w": 550, "h": 18,
+        "size": 13, "bold": True, "color": "#173F2E",
         "text": "3. Over-Spraying & Export Rejections"
     },
     {
-        "x": 60, "y": 278, "w": 550, "h": 110,
-        "size": 10.5, "bold": False, "color": "#273D30",
+        "x": 60, "y": 250, "w": 550, "h": 85,
+        "size": 9.5, "bold": False, "color": "#273D30",
         "text": "• Problem: Farmers spend ₹15k-40k/acre on panic chemical spraying, causing export rejections.\n• Solution: Grounded ICAR rules isolate physical observations from unconfirmed hypotheses.\n• ROI & Scale: Cuts pesticide spending by 40-60%; protects EU/US premium export compliance."
     },
     # Box 4: Problem 4
     {
-        "x": 670, "y": 255, "w": 550, "h": 20,
-        "size": 14, "bold": True, "color": "#173F2E",
+        "x": 670, "y": 230, "w": 550, "h": 18,
+        "size": 13, "bold": True, "color": "#173F2E",
         "text": "4. Fragmented Logs & Lack of Audits"
     },
     {
-        "x": 670, "y": 278, "w": 550, "h": 110,
-        "size": 10.5, "bold": False, "color": "#273D30",
+        "x": 670, "y": 250, "w": 550, "h": 85,
+        "size": 9.5, "bold": False, "color": "#273D30",
         "text": "• Problem: Informal WhatsApp/paper notes leave farm managers with zero auditable evidence logs.\n• Solution: Centralized CaseStore with timestamped audit trails & 1-click agronomist reviews.\n• ROI & Scale: Multi-tenant JSON database scales from 2-acre family farms to 1,000+ acre estates."
     },
     # Strategic Aspect Metric Banner Header
     {
-        "x": 60, "y": 405, "w": 1160, "h": 20,
-        "size": 12, "bold": True, "color": "#173F2E",
+        "x": 60, "y": 360, "w": 1160, "h": 18,
+        "size": 11, "bold": True, "color": "#173F2E",
         "text": "STRATEGIC EXECUTION & ROI METRICS"
     },
     # Strategic Aspect Metric Banner Details
     {
-        "x": 60, "y": 428, "w": 1160, "h": 60,
-        "size": 10, "bold": False, "color": "#273D30",
+        "x": 60, "y": 380, "w": 1160, "h": 75,
+        "size": 9.5, "bold": False, "color": "#273D30",
         "text": "• COSTING: 92% Total Cost of Ownership reduction using open 4-bit NF4 vision engine vs. commercial vision APIs.\n• PERFORMANCE: Sub-6.5s triage response time processing 1,024 vision patches at ~118ms/tok latency on T4 GPU.\n• SCALABILITY: Multi-tenant JSON storage architecture supporting regional multilingual scale across Konkan."
     },
     # Guardrail Notice Header
     {
-        "x": 60, "y": 505, "w": 1160, "h": 18,
-        "size": 10, "bold": True, "color": "#6D6345",
+        "x": 60, "y": 485, "w": 1160, "h": 16,
+        "size": 9.5, "bold": True, "color": "#6D6345",
         "text": "AGRONOMIC GUARDRAIL & REPOSITORY INFORMATION"
     },
     # Guardrail Notice Text
     {
-        "x": 60, "y": 525, "w": 1160, "h": 40,
-        "size": 9, "bold": False, "color": "#6D6345",
+        "x": 60, "y": 503, "w": 1160, "h": 40,
+        "size": 8.5, "bold": False, "color": "#6D6345",
         "text": "• Agronomic Guardrail Notice: AI analysis supports triage evidence isolation. Certified agronomist verification mandatory before chemical application.\n• Live Repository: https://github.com/HarshadHindlekar/Hapus-Scout.git  |  Vertical AI Track — Day-1 Builders Pitch Fest Edition"
     }
 ]
