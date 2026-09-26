@@ -84,6 +84,10 @@ def launch(model_path="", use_drive=True):
     env["SCOUT_DATA_DIR"] = "/content/drive/MyDrive/HapusScout/cases" if use_drive else "/content/HapusScout/cases"
     env["SCOUT_STORAGE_MODE"] = "drive" if use_drive else "temporary"
     env["GRADIO_ANALYTICS_ENABLED"] = "False"
-    print("Step 2/3: model files found. GPU loading is next; this does not mean the app is ready.", flush=True)
+    print("\n=======================================================", flush=True)
+    print("Step 2/3: Model files located successfully!", flush=True)
+    print("[INFO] GPU model allocation starting now (~30-45 seconds).", flush=True)
+    print("-> Keep this Colab cell RUNNING -- do not click stop or interrupt.", flush=True)
+    print("=======================================================\n", flush=True)
     env["PYTHONUNBUFFERED"] = "1"
     stream_command([sys.executable, "-u", str(root / "app.py"), "--share"], cwd=root, env=env)
