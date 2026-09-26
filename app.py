@@ -812,31 +812,78 @@ def main():
     
     SERVICE = ScoutService(CaseStore(os.environ.get("SCOUT_DATA_DIR", "data/cases")), model)
     
+def create_public_tunnel(port):
+    """Generates a direct public URL with seamless fallback across Gradio, Cloudflare, and Localtunnel."""
+    # 1. Gradio FRPC Tunnel (gradio.live)
+    try:
+        token = secrets.token_urlsafe(16)
+        tunnel = Tunnel("gradio.live", 7000, "127.0.0.1", port, token, None)
+        url = tunnel.start_tunnel()
+        if url:
+            return url, "Gradio Live"
+    except Exception as exc:
+        print(f"Gradio tunnel unavailable: {exc}. Trying Cloudflare Tunnel...", flush=True)
+
+    # 2. Cloudflare Tunnel (trycloudflare.com) - Direct browser access with zero IP verification prompts
+    try:
+        import subprocess, time, re
+        cmd = ["npx", "-y", "@cloudflare/cloudflared", "tunnel", "--url", f"http://127.0.0.1:{port}"]
+        proc = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
+        for _ in range(30):
+            line = proc.stdout.readline()
+            if not line:
+                time.sleep(0.3)
+                continue
+            match = re.search(r"https://[-a-zA-Z0-9.]+\.trycloudflare\.com", line)
+            if match:
+                return match.group(0), "Cloudflare"
+    except Exception as cf_exc:
+        print(f"Cloudflare tunnel error: {cf_exc}. Trying Localtunnel fallback...", flush=True)
+
+    # 3. Localtunnel fallback (loca.lt)
+    try:
+        import subprocess, time, urllib.request
+        host_ip = "Unknown"
+        try:
+            with urllib.request.urlopen("https://api.ipify.org") as resp:
+                host_ip = resp.read().decode('utf-8').strip()
+        except Exception:
+            pass
+
+        proc = subprocess.Popen(["npx", "-y", "localtunnel", "--port", str(port)], stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
+        for _ in range(20):
+            line = proc.stdout.readline()
+            if "url is:" in line.lower():
+                url = line.split("is:")[-1].strip()
+                return url, f"Localtunnel (IP Passcode: {host_ip})"
+    except Exception as lt_exc:
+        print(f"Localtunnel warning: {lt_exc}", flush=True)
+
+    return None, "Local Server"
+
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--share", action="store_true")
+    parser.add_argument("--ui-only", action="store_true", help="Verify UI without loading a model; analysis will be unavailable.")
+    args = parser.parse_args()
+    
+    global SERVICE
+    model = VisionModel()
+    if not args.ui_only:
+        print("Loading Qwen from the configured model folder; first startup can take several minutes.", flush=True)
+        model.load()
+    
+    SERVICE = ScoutService(CaseStore(os.environ.get("SCOUT_DATA_DIR", "data/cases")), model)
+    
     port = 7860
     if args.share:
-        public_url = None
-        try:
-            token = secrets.token_urlsafe(16)
-            tunnel = Tunnel("gradio.live", 7000, "127.0.0.1", port, token, None)
-            public_url = tunnel.start_tunnel()
-        except Exception as exc:
-            print(f"Gradio tunnel error: {exc}. Trying localtunnel fallback...", flush=True)
-            try:
-                import subprocess, time
-                proc = subprocess.Popen(["npx", "-y", "localtunnel", "--port", str(port)], stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
-                time.sleep(3)
-                for _ in range(10):
-                    line = proc.stdout.readline()
-                    if "url is:" in line.lower():
-                        public_url = line.split("is:")[-1].strip()
-                        break
-                    time.sleep(0.5)
-            except Exception as fallback_exc:
-                print(f"Fallback warning: {fallback_exc}", flush=True)
+        public_url, provider = create_public_tunnel(port)
 
         print(f"\n=======================================================", flush=True)
         print(f"🚀 Hapus Scout Enterprise Live App: {public_url or f'http://127.0.0.1:{port}'}", flush=True)
-        print(f"🔑 Passcode: scout / scout123", flush=True)
+        print(f"📡 Tunnel Provider: {provider}", flush=True)
+        print(f"🔑 App Passcode: scout / scout123", flush=True)
         print(f"=======================================================\n", flush=True)
         uvicorn.run(fastapi_app, host="127.0.0.1", port=port)
     else:
