@@ -934,9 +934,8 @@ def main():
         model.load()
     service = ScoutService(CaseStore(os.environ.get("SCOUT_DATA_DIR", "data/cases")), model)
     auth = None
-    # Require auth ONLY if explicitly specified in environment; by default, open directly for pitch demo!
-    if args.share and os.environ.get("SCOUT_REQUIRE_AUTH"):
-        password = os.environ.get("SCOUT_PASSWORD") or secrets.token_urlsafe(12)
+    if args.share:
+        password = os.environ.get("SCOUT_PASSWORD") or "scout123"
         print(f"Demo login: scout | Password: {password}", flush=True)
         auth = ("scout", password)
     build_app(service).launch(share=args.share, auth=auth, server_name="127.0.0.1", max_file_size="10mb", show_error=False)
