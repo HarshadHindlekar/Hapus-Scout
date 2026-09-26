@@ -1,7 +1,7 @@
 """Generates official 1-Page Single-Slide Pitch Presentation (.pptx and .pdf).
 
 Strictly 1 slide / 1 page covering the 4 Core Business Problems, Costing, Performance, and Scalability.
-Generous spacing layout with zero text collisions.
+Clean wording without draft/track labels.
 """
 import json
 from pathlib import Path
@@ -15,12 +15,12 @@ tmp_dir.mkdir(parents=True, exist_ok=True)
 out_pdf_dir.mkdir(parents=True, exist_ok=True)
 out_pptx_dir.mkdir(parents=True, exist_ok=True)
 
-# 1-Page Slide Content definition (1280 x 720 geometry coordinate system with 40+ px vertical gaps)
+# 1-Page Slide Content definition (1280 x 720 geometry coordinate system with generous vertical padding)
 CONTENT = [
     {
         "x": 60, "y": 30, "w": 1160, "h": 32,
-        "size": 24, "bold": True, "color": "#173F2E",
-        "text": "Hapus Scout™ Enterprise — 1-Page Executive Pitch"
+        "size": 26, "bold": True, "color": "#173F2E",
+        "text": "Hapus Scout™ Enterprise"
     },
     {
         "x": 60, "y": 64, "w": 1160, "h": 20,
@@ -93,7 +93,7 @@ CONTENT = [
     {
         "x": 60, "y": 503, "w": 1160, "h": 40,
         "size": 8.5, "bold": False, "color": "#6D6345",
-        "text": "• Agronomic Guardrail Notice: AI analysis supports triage evidence isolation. Certified agronomist verification mandatory before chemical application.\n• Live Repository: https://github.com/HarshadHindlekar/Hapus-Scout.git  |  Vertical AI Track — Day-1 Builders Pitch Fest Edition"
+        "text": "• Agronomic Guardrail Notice: AI analysis supports triage evidence isolation. Certified agronomist verification mandatory before chemical application.\n• Live Repository: https://github.com/HarshadHindlekar/Hapus-Scout.git"
     }
 ]
 
@@ -115,7 +115,7 @@ def build_pdf():
 
     pdf_path = out_pdf_dir / "hapus-scout-day1.pdf"
     c = canvas.Canvas(str(pdf_path), pagesize=(960, 540))
-    c.setTitle("Hapus Scout - 1-Page Executive Pitch")
+    c.setTitle("Hapus Scout Enterprise Pitch")
     
     # Light cream background
     c.setFillColor(HexColor("#F6F4EA"))
