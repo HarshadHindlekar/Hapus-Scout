@@ -11,34 +11,119 @@ from scout.service import ScoutService
 from scout.storage import CaseStore
 
 CSS = """
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap');
 
-:root {
-    --primary: #059669;
-    --primary-dark: #047857;
-    --primary-light: #ecfdf5;
-    --accent-gold: #d97706;
-    --accent-gold-bg: #fffbe6;
-    --dark-green: #064e3b;
-    --slate-bg: #f8faf6;
-    --card-bg: #ffffff;
-    --border-color: #e2e8f0;
-    --text-primary: #0f172a;
-    --text-secondary: #475569;
-}
-
-body, .dark {
-    background-color: #f1f5f2 !important;
+/* Global Reset & Background */
+html, body {
+    background: linear-gradient(135deg, #022c22 0%, #064e3b 40%, #08281e 100%) !important;
+    min-height: 100vh !important;
     color: #0f172a !important;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+    font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, sans-serif !important;
+    margin: 0;
+    padding: 0;
 }
 
+/* GRADIO LOGIN PAGE OVERRIDES */
+form[action="/login"], .login, div:has(> form[action="/login"]) {
+    background: rgba(255, 255, 255, 0.96) !important;
+    backdrop-filter: blur(20px) !important;
+    border: 1px solid rgba(16, 185, 129, 0.3) !important;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35), 0 0 30px rgba(16, 185, 129, 0.15) !important;
+    border-radius: 24px !important;
+    max-width: 440px !important;
+    margin: 60px auto !important;
+    padding: 40px 36px !important;
+    box-sizing: border-box !important;
+    text-align: center !important;
+    position: relative !important;
+}
+
+form[action="/login"]::before {
+    content: "🥭 HAPUS SCOUT™ ENTERPRISE";
+    display: block;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 20px;
+    font-weight: 800;
+    color: #064e3b;
+    letter-spacing: -0.5px;
+    margin-bottom: 6px;
+}
+
+form[action="/login"]::after {
+    content: "Alphonso Orchard Inspection Platform · Sign in to your workspace";
+    display: block;
+    font-size: 13px;
+    color: #64748b;
+    margin-bottom: 24px;
+}
+
+form[action="/login"] label {
+    display: block !important;
+    text-align: left !important;
+    font-size: 12px !important;
+    font-weight: 700 !important;
+    color: #334155 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    margin-top: 14px !important;
+    margin-bottom: 6px !important;
+}
+
+form[action="/login"] input[type="text"],
+form[action="/login"] input[type="password"] {
+    width: 100% !important;
+    padding: 14px 16px !important;
+    font-size: 14px !important;
+    border: 1px solid #cbd5e1 !important;
+    border-radius: 12px !important;
+    background: #f8fafc !important;
+    box-sizing: border-box !important;
+    transition: all 0.2s ease !important;
+}
+
+form[action="/login"] input[type="text"]:focus,
+form[action="/login"] input[type="password"]:focus {
+    border-color: #10b981 !important;
+    background: #ffffff !important;
+    box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.15) !important;
+    outline: none !important;
+}
+
+form[action="/login"] button, form[action="/login"] input[type="submit"] {
+    width: 100% !important;
+    margin-top: 24px !important;
+    padding: 14px 20px !important;
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+    color: #ffffff !important;
+    font-size: 15px !important;
+    font-weight: 700 !important;
+    border: none !important;
+    border-radius: 12px !important;
+    cursor: pointer !important;
+    box-shadow: 0 4px 14px rgba(16, 185, 129, 0.35) !important;
+    transition: all 0.2s ease !important;
+}
+
+form[action="/login"] button:hover, form[action="/login"] input[type="submit"]:hover {
+    background: linear-gradient(135deg, #059669 0%, #047857 100%) !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.45) !important;
+}
+
+/* MAIN APP CONTAINER OVERRIDES */
 .gradio-container {
     width: 100% !important;
-    max-width: 1280px !important;
-    box-sizing: border-box;
-    margin: auto;
-    padding: clamp(16px, 2.5vw, 32px) !important;
+    max-width: 1320px !important;
+    margin: 0 auto !important;
+    padding: clamp(16px, 2vw, 32px) !important;
+    box-sizing: border-box !important;
+}
+
+.gradio-container .main {
+    background: #f4f7f4 !important;
+    border-radius: 24px !important;
+    padding: 24px !important;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25) !important;
 }
 
 .gradio-container .app, .gradio-container .html-container {
@@ -47,41 +132,42 @@ body, .dark {
 
 /* Header & Hero Branding */
 #hero {
-    background: linear-gradient(135deg, #064e3b 0%, #022c22 100%);
+    background: linear-gradient(135deg, #04392b 0%, #022018 100%);
     color: #ffffff;
-    padding: 24px 32px;
+    padding: 28px 36px;
     border-radius: 20px;
-    box-shadow: 0 12px 30px rgba(6, 78, 59, 0.2);
+    box-shadow: 0 10px 30px rgba(4, 57, 43, 0.3);
     margin-bottom: 24px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
     gap: 20px;
+    border: 1px solid rgba(16, 185, 129, 0.2);
 }
 
 .brand-wrapper {
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 18px;
 }
 
 .brand-icon {
-    width: 52px;
-    height: 52px;
+    width: 56px;
+    height: 56px;
     background: linear-gradient(135deg, #10b981 0%, #059669 100%);
     color: #ffffff;
-    border-radius: 14px;
+    border-radius: 16px;
     display: grid;
     place-items: center;
-    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+    box-shadow: 0 6px 16px rgba(16, 185, 129, 0.4);
 }
 
 .brand-title h1 {
     color: #ffffff !important;
-    font-size: 28px !important;
+    font-size: 30px !important;
     font-weight: 800 !important;
-    letter-spacing: -0.5px;
+    letter-spacing: -0.6px;
     margin: 0 !important;
     line-height: 1.1;
 }
@@ -93,9 +179,9 @@ body, .dark {
     color: #6ee7b7;
     font-size: 11px;
     font-weight: 700;
-    padding: 3px 10px;
+    padding: 4px 12px;
     border-radius: 20px;
-    letter-spacing: 1px;
+    letter-spacing: 1.2px;
     text-transform: uppercase;
     margin-bottom: 6px;
 }
@@ -111,13 +197,13 @@ body, .dark {
     border: 1px solid rgba(255, 255, 255, 0.15);
     color: #e2e8f0;
     font-size: 12px;
-    font-weight: 500;
-    padding: 6px 14px;
+    font-weight: 600;
+    padding: 7px 16px;
     border-radius: 30px;
     display: flex;
     align-items: center;
     gap: 8px;
-    backdrop-filter: blur(8px);
+    backdrop-filter: blur(10px);
 }
 
 .status-dot {
@@ -125,11 +211,11 @@ body, .dark {
     height: 8px;
     border-radius: 50%;
     background-color: #10b981;
-    box-shadow: 0 0 8px #10b981;
+    box-shadow: 0 0 10px #10b981;
 }
 
-/* Quick Workflow Steps Bar */
-.workflow-steps-bar {
+/* Metric Strip */
+.metrics-strip {
     background: #ffffff;
     border: 1px solid #e2e8f0;
     border-radius: 16px;
@@ -139,117 +225,76 @@ body, .dark {
     justify-content: space-around;
     align-items: center;
     gap: 16px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+    flex-wrap: wrap;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.02);
 }
 
-.step-item {
+.metric-item {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 12px;
-    color: #475569;
-    font-size: 13px;
+}
+
+.metric-value {
+    font-size: 18px;
+    font-weight: 800;
+    color: #064e3b;
+}
+
+.metric-label {
+    font-size: 11px;
     font-weight: 600;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
-.step-num {
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    background: #ecfdf5;
-    color: #059669;
-    font-weight: 700;
-    display: grid;
-    place-items: center;
-    font-size: 12px;
-    border: 1px solid #a7f3d0;
-}
-
-/* Preset Buttons Bar */
-.preset-bar {
-    background: #f8fafc;
+/* Preset Scenario Bar */
+.preset-bar-wrapper {
+    background: #ffffff;
     border: 1px solid #e2e8f0;
-    border-radius: 12px;
-    padding: 12px 16px;
-    margin-bottom: 18px;
+    border-radius: 14px;
+    padding: 14px 18px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.02);
 }
 
 .preset-title {
     font-size: 12px;
     font-weight: 700;
-    color: #64748b;
+    color: #475569;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
-    margin-bottom: 8px;
-}
-
-.preset-btn-row {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-}
-
-/* Storage Alert */
-#storage-note {
-    background: #fffbe6;
-    border: 1px solid #ffe58f;
-    padding: 12px 18px !important;
-    border-radius: 12px;
-    color: #873800;
-    font-size: 13px;
-    font-weight: 500;
-    margin-bottom: 20px;
+    letter-spacing: 0.8px;
+    margin-bottom: 10px;
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 6px;
 }
 
-/* Tabs Styling */
-.tab-nav {
-    border-bottom: 2px solid #e2e8f0 !important;
-    gap: 24px !important;
-    margin-bottom: 24px !important;
-}
-
-.tab-nav button {
-    padding: 14px 8px !important;
-    font-size: 15px !important;
-    font-weight: 600 !important;
-    color: #64748b !important;
-    border-radius: 0 !important;
-    border: none !important;
-    background: transparent !important;
-    transition: all 0.2s ease;
-}
-
-.tab-nav button.selected {
-    color: #059669 !important;
-    border-bottom: 3px solid #059669 !important;
-    font-weight: 700 !important;
-}
-
-/* Card Panels */
+/* Cards and Panels */
 #report-panel, #brief-panel, #library-panel, #case-panel {
     background: #ffffff !important;
     border: 1px solid #e2e8f0 !important;
-    border-radius: 18px !important;
-    padding: 24px !important;
+    border-radius: 20px !important;
+    padding: 26px !important;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03) !important;
 }
 
 .section-head {
-    margin-bottom: 18px;
-    padding-bottom: 12px;
+    margin-bottom: 20px;
+    padding-bottom: 14px;
     border-bottom: 1px solid #f1f5f9;
 }
 
 .section-head h3 {
     font-size: 20px !important;
-    font-weight: 700 !important;
+    font-weight: 800 !important;
     color: #0f172a !important;
     margin: 0 0 6px !important;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
+    letter-spacing: -0.3px;
 }
 
 .section-head p {
@@ -258,16 +303,55 @@ body, .dark {
     margin: 0 !important;
 }
 
-/* Image Upload Customization */
+/* Custom Tabs Styling */
+.tab-nav {
+    border-bottom: 2px solid #e2e8f0 !important;
+    gap: 28px !important;
+    margin-bottom: 24px !important;
+}
+
+.tab-nav button {
+    padding: 14px 10px !important;
+    font-size: 15px !important;
+    font-weight: 600 !important;
+    color: #64748b !important;
+    border-radius: 0 !important;
+    border: none !important;
+    background: transparent !important;
+    transition: all 0.2s ease !important;
+}
+
+.tab-nav button.selected {
+    color: #059669 !important;
+    border-bottom: 3px solid #059669 !important;
+    font-weight: 700 !important;
+}
+
+/* Image Upload Dropzone */
 #photo-input {
     border: 2px dashed #cbd5e1 !important;
     background: #f8fafc !important;
-    border-radius: 14px !important;
+    border-radius: 16px !important;
     transition: border-color 0.2s ease;
 }
 
 #photo-input:hover {
     border-color: #10b981 !important;
+}
+
+/* Storage Alert */
+#storage-note {
+    background: #fffbe6;
+    border: 1px solid #ffe58f;
+    padding: 14px 20px !important;
+    border-radius: 14px;
+    color: #873800;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
 /* Rendered Brief Custom HTML */
@@ -440,7 +524,6 @@ body, .dark {
     border-radius: 10px;
     padding: 12px 16px;
     font-size: 12px;
-    color: #722ed1;
     color: #873800;
     line-height: 1.5;
     margin-top: 16px;
@@ -491,28 +574,26 @@ body, .dark {
     line-height: 1.6;
 }
 
-/* Help text */
 .help-line {
     font-size: 12px !important;
     color: #94a3b8 !important;
     margin-top: 8px !important;
 }
 
-/* Responsive adjustments */
 @media (max-width: 640px) {
     .gradio-container { padding: 12px !important; }
-    #hero { padding: 18px 20px; }
-    .brand-title h1 { font-size: 22px !important; }
-    .workflow-steps-bar { flex-direction: column; align-items: flex-start; gap: 10px; }
-    #report-panel, #brief-panel, #library-panel, #case-panel { padding: 16px !important; }
+    #hero { padding: 20px 20px; }
+    .brand-title h1 { font-size: 24px !important; }
+    .metrics-strip { flex-direction: column; align-items: flex-start; gap: 12px; }
+    #report-panel, #brief-panel, #library-panel, #case-panel { padding: 18px !important; }
 }
 """
 
 
 def scout_theme():
-    theme = gr.themes.Base(primary_hue="emerald", neutral_hue="slate", font=["Inter", "sans-serif"])
+    theme = gr.themes.Base(primary_hue="emerald", neutral_hue="slate", font=["Plus Jakarta Sans", "Inter", "sans-serif"])
     values = dict(
-        body_background_fill="#f1f5f2",
+        body_background_fill="#04392b",
         body_text_color="#0f172a",
         body_text_color_subdued="#64748b",
         background_fill_primary="#ffffff",
@@ -724,7 +805,7 @@ def build_app(service):
             '<header id="hero">'
             '<div class="brand-wrapper">'
             '<div class="brand-icon">'
-            '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.4 19 2c1 2 2 4.12 2 9a7 7 0 0 1-10 9z"></path><path d="M11 20v-8.5"></path></svg>'
+            '<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.4 19 2c1 2 2 4.12 2 9a7 7 0 0 1-10 9z"></path><path d="M11 20v-8.5"></path></svg>'
             '</div>'
             '<div class="brand-title">'
             '<span class="badge">Hapus & More AI Platform</span>'
@@ -739,14 +820,16 @@ def build_app(service):
             '</header>'
         )
 
-        # Workflow Bar
+        # Metric & Workflow Bar
         gr.HTML(
-            '<div class="workflow-steps-bar">'
-            '<div class="step-item"><span class="step-num">01</span> 📷 Capture Evidence & Field Context</div>'
-            '<div style="color:#cbd5e1;">→</div>'
-            '<div class="step-item"><span class="step-num">02</span> 🤖 Qwen3-VL Multimodal Triage</div>'
-            '<div style="color:#cbd5e1;">→</div>'
-            '<div class="step-item"><span class="step-num">03</span> 📋 Agronomic Action & Case Audit</div>'
+            '<div class="metrics-strip">'
+            '<div class="metric-item"><span class="metric-value">12</span><span class="metric-label">Orchard Blocks</span></div>'
+            '<div style="color:#cbd5e1;">│</div>'
+            '<div class="metric-item"><span class="metric-value">Qwen3-VL</span><span class="metric-label">Vision Model (4-Bit)</span></div>'
+            '<div style="color:#cbd5e1;">│</div>'
+            '<div class="metric-item"><span class="metric-value">0 Prescriptions</span><span class="metric-label">Safety Enforced</span></div>'
+            '<div style="color:#cbd5e1;">│</div>'
+            '<div class="metric-item"><span class="metric-value">ICAR Grounded</span><span class="metric-label">Agronomic Rules</span></div>'
             '</div>'
         )
 
@@ -760,8 +843,12 @@ def build_app(service):
         with gr.Tab("⚡ New Inspection"):
             current = gr.State("")
 
-            # Quick Presets
-            gr.HTML('<div class="preset-title">⚡ Quick Demo Preset Scenarios (Click to auto-fill):</div>')
+            # Quick Presets Bar
+            gr.HTML(
+                '<div class="preset-bar-wrapper">'
+                '<div class="preset-title">⚡ Quick Demo Presets (Click to auto-fill sample orchard issues):</div>'
+                '</div>'
+            )
             with gr.Row():
                 preset1_btn = gr.Button("🍃 Preset 1: Anthracnose Leaf Lesions", size="sm", variant="secondary")
                 preset2_btn = gr.Button("🥭 Preset 2: Fruit Fly Soft Spot", size="sm", variant="secondary")
