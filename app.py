@@ -13,161 +13,100 @@ from scout.storage import CaseStore
 CSS = """
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap');
 
-/* Global Reset & Background */
+/* Global Reset & Responsive Body */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
 html, body {
-    background: linear-gradient(135deg, #022c22 0%, #064e3b 40%, #08281e 100%) !important;
-    min-height: 100vh !important;
-    color: #0f172a !important;
-    font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, sans-serif !important;
     margin: 0;
     padding: 0;
+    background-color: #032b1f !important;
+    font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, sans-serif !important;
+    color: #0f172a !important;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
 }
 
-/* GRADIO LOGIN PAGE OVERRIDES */
-form[action="/login"], .login, div:has(> form[action="/login"]) {
-    background: rgba(255, 255, 255, 0.96) !important;
-    backdrop-filter: blur(20px) !important;
-    border: 1px solid rgba(16, 185, 129, 0.3) !important;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35), 0 0 30px rgba(16, 185, 129, 0.15) !important;
-    border-radius: 24px !important;
-    max-width: 440px !important;
-    margin: 60px auto !important;
-    padding: 40px 36px !important;
-    box-sizing: border-box !important;
-    text-align: center !important;
-    position: relative !important;
-}
-
-form[action="/login"]::before {
-    content: "🥭 HAPUS SCOUT™ ENTERPRISE";
-    display: block;
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 20px;
-    font-weight: 800;
-    color: #064e3b;
-    letter-spacing: -0.5px;
-    margin-bottom: 6px;
-}
-
-form[action="/login"]::after {
-    content: "Alphonso Orchard Inspection Platform · Sign in to your workspace";
-    display: block;
-    font-size: 13px;
-    color: #64748b;
-    margin-bottom: 24px;
-}
-
-form[action="/login"] label {
-    display: block !important;
-    text-align: left !important;
-    font-size: 12px !important;
-    font-weight: 700 !important;
-    color: #334155 !important;
-    text-transform: uppercase !important;
-    letter-spacing: 0.5px !important;
-    margin-top: 14px !important;
-    margin-bottom: 6px !important;
-}
-
-form[action="/login"] input[type="text"],
-form[action="/login"] input[type="password"] {
-    width: 100% !important;
-    padding: 14px 16px !important;
-    font-size: 14px !important;
-    border: 1px solid #cbd5e1 !important;
-    border-radius: 12px !important;
-    background: #f8fafc !important;
-    box-sizing: border-box !important;
-    transition: all 0.2s ease !important;
-}
-
-form[action="/login"] input[type="text"]:focus,
-form[action="/login"] input[type="password"]:focus {
-    border-color: #10b981 !important;
-    background: #ffffff !important;
-    box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.15) !important;
-    outline: none !important;
-}
-
-form[action="/login"] button, form[action="/login"] input[type="submit"] {
-    width: 100% !important;
-    margin-top: 24px !important;
-    padding: 14px 20px !important;
-    background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
-    color: #ffffff !important;
-    font-size: 15px !important;
-    font-weight: 700 !important;
-    border: none !important;
-    border-radius: 12px !important;
-    cursor: pointer !important;
-    box-shadow: 0 4px 14px rgba(16, 185, 129, 0.35) !important;
-    transition: all 0.2s ease !important;
-}
-
-form[action="/login"] button:hover, form[action="/login"] input[type="submit"]:hover {
-    background: linear-gradient(135deg, #059669 0%, #047857 100%) !important;
-    transform: translateY(-1px) !important;
-    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.45) !important;
-}
-
-/* MAIN APP CONTAINER OVERRIDES */
+/* GRADIO MAIN WRAPPER */
 .gradio-container {
     width: 100% !important;
-    max-width: 1320px !important;
+    max-width: 1380px !important;
     margin: 0 auto !important;
-    padding: clamp(16px, 2vw, 32px) !important;
-    box-sizing: border-box !important;
+    padding: clamp(8px, 2vw, 24px) !important;
 }
 
 .gradio-container .main {
     background: #f4f7f4 !important;
     border-radius: 24px !important;
-    padding: 24px !important;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25) !important;
+    padding: clamp(12px, 2vw, 28px) !important;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.45) !important;
 }
 
 .gradio-container .app, .gradio-container .html-container {
     padding: 0 !important;
 }
 
-/* Header & Hero Branding */
+/* LOGIN STYLING (Only if auth is explicitly enabled) */
+.login, form[action="/login"] {
+    background: #ffffff !important;
+    border: 2px solid #10b981 !important;
+    border-radius: 20px !important;
+    padding: 36px 28px !important;
+    max-width: 420px !important;
+    margin: 40px auto !important;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3) !important;
+    text-align: center !important;
+}
+
+.login input[type="text"], .login input[type="password"] {
+    width: 100% !important;
+    padding: 12px 16px !important;
+    border: 1px solid #cbd5e1 !important;
+    border-radius: 10px !important;
+    margin-top: 6px !important;
+    margin-bottom: 16px !important;
+}
+
+/* ALL-DEVICE HEADER */
 #hero {
     background: linear-gradient(135deg, #04392b 0%, #022018 100%);
     color: #ffffff;
-    padding: 28px 36px;
+    padding: clamp(16px, 2.5vw, 28px);
     border-radius: 20px;
     box-shadow: 0 10px 30px rgba(4, 57, 43, 0.3);
-    margin-bottom: 24px;
+    margin-bottom: 20px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
-    gap: 20px;
-    border: 1px solid rgba(16, 185, 129, 0.2);
+    gap: 16px;
+    border: 1px solid rgba(16, 185, 129, 0.25);
 }
 
 .brand-wrapper {
     display: flex;
     align-items: center;
-    gap: 18px;
+    gap: 16px;
 }
 
 .brand-icon {
-    width: 56px;
-    height: 56px;
+    width: 52px;
+    height: 52px;
     background: linear-gradient(135deg, #10b981 0%, #059669 100%);
     color: #ffffff;
     border-radius: 16px;
     display: grid;
     place-items: center;
     box-shadow: 0 6px 16px rgba(16, 185, 129, 0.4);
+    flex-shrink: 0;
 }
 
 .brand-title h1 {
     color: #ffffff !important;
-    font-size: 30px !important;
+    font-size: clamp(22px, 3vw, 28px) !important;
     font-weight: 800 !important;
-    letter-spacing: -0.6px;
+    letter-spacing: -0.5px;
     margin: 0 !important;
     line-height: 1.1;
 }
@@ -177,18 +116,18 @@ form[action="/login"] button:hover, form[action="/login"] input[type="submit"]:h
     background: rgba(16, 185, 129, 0.2);
     border: 1px solid rgba(16, 185, 129, 0.4);
     color: #6ee7b7;
-    font-size: 11px;
+    font-size: 10px;
     font-weight: 700;
-    padding: 4px 12px;
+    padding: 3px 10px;
     border-radius: 20px;
-    letter-spacing: 1.2px;
+    letter-spacing: 1px;
     text-transform: uppercase;
-    margin-bottom: 6px;
+    margin-bottom: 4px;
 }
 
 .system-status-pills {
     display: flex;
-    gap: 10px;
+    gap: 8px;
     flex-wrap: wrap;
 }
 
@@ -196,14 +135,13 @@ form[action="/login"] button:hover, form[action="/login"] input[type="submit"]:h
     background: rgba(255, 255, 255, 0.08);
     border: 1px solid rgba(255, 255, 255, 0.15);
     color: #e2e8f0;
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 600;
-    padding: 7px 16px;
+    padding: 6px 14px;
     border-radius: 30px;
     display: flex;
     align-items: center;
-    gap: 8px;
-    backdrop-filter: blur(10px);
+    gap: 6px;
 }
 
 .status-dot {
@@ -214,80 +152,65 @@ form[action="/login"] button:hover, form[action="/login"] input[type="submit"]:h
     box-shadow: 0 0 10px #10b981;
 }
 
-/* Metric Strip */
-.metrics-strip {
-    background: #ffffff;
-    border: 1px solid #e2e8f0;
-    border-radius: 16px;
-    padding: 16px 24px;
-    margin-bottom: 24px;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    gap: 16px;
-    flex-wrap: wrap;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+/* RESPONSIVE METRICS STRIP */
+.metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 12px;
+    margin-bottom: 20px;
 }
 
-.metric-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.metric-value {
-    font-size: 18px;
-    font-weight: 800;
-    color: #064e3b;
-}
-
-.metric-label {
-    font-size: 11px;
-    font-weight: 600;
-    color: #64748b;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-/* Preset Scenario Bar */
-.preset-bar-wrapper {
+.metric-card {
     background: #ffffff;
     border: 1px solid #e2e8f0;
     border-radius: 14px;
-    padding: 14px 18px;
-    margin-bottom: 20px;
+    padding: 14px 16px;
+    text-align: center;
     box-shadow: 0 2px 8px rgba(0,0,0,0.02);
 }
 
-.preset-title {
-    font-size: 12px;
+.metric-card-val {
+    font-size: 16px;
+    font-weight: 800;
+    color: #059669;
+}
+
+.metric-card-lbl {
+    font-size: 10px;
+    font-weight: 700;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 2px;
+}
+
+/* PRESETS SCENARIOS */
+.preset-bar-title {
+    font-size: 11px;
     font-weight: 700;
     color: #475569;
     text-transform: uppercase;
     letter-spacing: 0.8px;
-    margin-bottom: 10px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
+    margin-bottom: 8px;
 }
 
-/* Cards and Panels */
+/* CARDS & PANELS */
 #report-panel, #brief-panel, #library-panel, #case-panel {
     background: #ffffff !important;
     border: 1px solid #e2e8f0 !important;
     border-radius: 20px !important;
-    padding: 26px !important;
+    padding: clamp(16px, 2.5vw, 26px) !important;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03) !important;
 }
 
 .section-head {
-    margin-bottom: 20px;
-    padding-bottom: 14px;
+    margin-bottom: 18px;
+    padding-bottom: 12px;
     border-bottom: 1px solid #f1f5f9;
 }
 
 .section-head h3 {
-    font-size: 20px !important;
+    font-size: clamp(18px, 2.5vw, 21px) !important;
     font-weight: 800 !important;
     color: #0f172a !important;
     margin: 0 0 6px !important;
@@ -303,16 +226,16 @@ form[action="/login"] button:hover, form[action="/login"] input[type="submit"]:h
     margin: 0 !important;
 }
 
-/* Custom Tabs Styling */
+/* TABS STYLING */
 .tab-nav {
     border-bottom: 2px solid #e2e8f0 !important;
-    gap: 28px !important;
-    margin-bottom: 24px !important;
+    gap: 20px !important;
+    margin-bottom: 20px !important;
 }
 
 .tab-nav button {
-    padding: 14px 10px !important;
-    font-size: 15px !important;
+    padding: 12px 8px !important;
+    font-size: 14px !important;
     font-weight: 600 !important;
     color: #64748b !important;
     border-radius: 0 !important;
@@ -327,38 +250,71 @@ form[action="/login"] button:hover, form[action="/login"] input[type="submit"]:h
     font-weight: 700 !important;
 }
 
-/* Image Upload Dropzone */
+/* PHOTO DROPZONE */
 #photo-input {
-    border: 2px dashed #cbd5e1 !important;
-    background: #f8fafc !important;
+    border: 2px dashed #a7f3d0 !important;
+    background: #f0fdf4 !important;
     border-radius: 16px !important;
-    transition: border-color 0.2s ease;
+    transition: all 0.2s ease;
 }
 
 #photo-input:hover {
-    border-color: #10b981 !important;
+    border-color: #059669 !important;
+    background: #dcfce7 !important;
 }
 
-/* Storage Alert */
+/* BUTTONS */
+.gradio-container button.primary {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+    color: #ffffff !important;
+    font-weight: 700 !important;
+    font-size: 15px !important;
+    border: none !important;
+    border-radius: 12px !important;
+    padding: 14px 20px !important;
+    box-shadow: 0 4px 14px rgba(16, 185, 129, 0.35) !important;
+    transition: all 0.2s ease !important;
+}
+
+.gradio-container button.primary:hover {
+    background: linear-gradient(135deg, #059669 0%, #047857 100%) !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.45) !important;
+}
+
+.gradio-container button.secondary {
+    background: #f1f5f9 !important;
+    color: #334155 !important;
+    border: 1px solid #cbd5e1 !important;
+    font-weight: 600 !important;
+    border-radius: 12px !important;
+    transition: all 0.2s ease !important;
+}
+
+.gradio-container button.secondary:hover {
+    background: #e2e8f0 !important;
+    color: #0f172a !important;
+}
+
+/* STORAGE ALERT */
 #storage-note {
     background: #fffbe6;
     border: 1px solid #ffe58f;
-    padding: 14px 20px !important;
+    padding: 12px 18px !important;
     border-radius: 14px;
     color: #873800;
     font-size: 13px;
     font-weight: 600;
-    margin-bottom: 24px;
+    margin-bottom: 20px;
     display: flex;
     align-items: center;
     gap: 10px;
 }
 
-/* Rendered Brief Custom HTML */
+/* BRIEF DASHBOARD HTML */
 .brief-card {
     background: #ffffff;
     border-radius: 16px;
-    padding: 4px;
     color: #0f172a;
     line-height: 1.6;
 }
@@ -368,9 +324,9 @@ form[action="/login"] button:hover, form[action="/login"] input[type="submit"]:h
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
-    gap: 12px;
-    padding-bottom: 16px;
-    margin-bottom: 16px;
+    gap: 10px;
+    padding-bottom: 14px;
+    margin-bottom: 14px;
     border-bottom: 1px solid #f1f5f9;
 }
 
@@ -424,7 +380,7 @@ form[action="/login"] button:hover, form[action="/login"] input[type="submit"]:h
 }
 
 .brief-location {
-    font-size: 24px;
+    font-size: clamp(20px, 2.5vw, 24px);
     font-weight: 800;
     color: #0f172a;
     margin: 0 0 8px 0;
@@ -454,36 +410,36 @@ form[action="/login"] button:hover, form[action="/login"] input[type="submit"]:h
 
 .brief-grid {
     display: grid;
-    grid-template-columns: 1fr;
-    gap: 16px;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 14px;
     margin-bottom: 20px;
 }
 
 .brief-section-card {
     background: #ffffff;
     border: 1px solid #e2e8f0;
-    border-radius: 12px;
+    border-radius: 14px;
     padding: 16px;
 }
 
 .brief-section-title {
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 700;
     color: #1e293b;
-    margin: 0 0 10px 0;
+    margin: 0 0 8px 0;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
 }
 
 .brief-section-card ul {
     margin: 0;
-    padding-left: 20px;
+    padding-left: 18px;
 }
 
 .brief-section-card li {
     margin-bottom: 6px;
-    font-size: 14px;
+    font-size: 13px;
     color: #334155;
 }
 
@@ -511,7 +467,6 @@ form[action="/login"] button:hover, form[action="/login"] input[type="submit"]:h
     text-decoration: none !important;
     margin-right: 8px;
     margin-bottom: 8px;
-    transition: background 0.2s ease;
 }
 
 .citation-pill:hover {
@@ -532,44 +487,44 @@ form[action="/login"] button:hover, form[action="/login"] input[type="submit"]:h
     gap: 10px;
 }
 
-/* Empty Brief Placeholder */
+/* EMPTY BRIEF PLACEHOLDER */
 .empty-brief-container {
-    min-height: 320px;
+    min-height: 300px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: 40px 24px;
+    padding: 32px 20px;
     border: 2px dashed #e2e8f0;
     border-radius: 16px;
     background: #fafcfb;
 }
 
 .empty-brief-icon {
-    width: 64px;
-    height: 64px;
+    width: 60px;
+    height: 60px;
     background: #ecfdf5;
     color: #059669;
     border-radius: 50%;
     display: grid;
     place-items: center;
-    font-size: 28px;
-    margin-bottom: 16px;
+    font-size: 26px;
+    margin-bottom: 14px;
     box-shadow: 0 4px 12px rgba(5, 150, 105, 0.1);
 }
 
 .empty-brief-container h3 {
-    font-size: 18px !important;
+    font-size: 17px !important;
     font-weight: 700 !important;
     color: #0f172a !important;
-    margin: 0 0 8px 0 !important;
+    margin: 0 0 6px 0 !important;
 }
 
 .empty-brief-container p {
     font-size: 13px !important;
     color: #64748b !important;
-    max-width: 340px;
+    max-width: 320px;
     margin: 0 !important;
     line-height: 1.6;
 }
@@ -580,12 +535,15 @@ form[action="/login"] button:hover, form[action="/login"] input[type="submit"]:h
     margin-top: 8px !important;
 }
 
+/* MOBILE RESPONSIVE ADAPTATIONS (< 640px) */
 @media (max-width: 640px) {
-    .gradio-container { padding: 12px !important; }
-    #hero { padding: 20px 20px; }
-    .brand-title h1 { font-size: 24px !important; }
-    .metrics-strip { flex-direction: column; align-items: flex-start; gap: 12px; }
-    #report-panel, #brief-panel, #library-panel, #case-panel { padding: 18px !important; }
+    .gradio-container { padding: 4px !important; }
+    .gradio-container .main { padding: 10px !important; border-radius: 16px !important; }
+    #hero { padding: 16px; border-radius: 16px; }
+    .metrics-grid { grid-template-columns: 1fr 1fr; }
+    #report-panel, #brief-panel, #library-panel, #case-panel { padding: 14px !important; border-radius: 14px !important; }
+    .tab-nav { gap: 10px !important; }
+    .tab-nav button { font-size: 13px !important; padding: 10px 4px !important; }
 }
 """
 
@@ -593,7 +551,7 @@ form[action="/login"] button:hover, form[action="/login"] input[type="submit"]:h
 def scout_theme():
     theme = gr.themes.Base(primary_hue="emerald", neutral_hue="slate", font=["Plus Jakarta Sans", "Inter", "sans-serif"])
     values = dict(
-        body_background_fill="#04392b",
+        body_background_fill="#032b1f",
         body_text_color="#0f172a",
         body_text_color_subdued="#64748b",
         background_fill_primary="#ffffff",
@@ -636,7 +594,7 @@ def scout_theme():
         color_accent_soft="#ecfdf5",
         panel_background_fill="#ffffff",
         block_padding="12px",
-        layout_gap="20px",
+        layout_gap="16px",
         block_radius="12px",
     )
     parameters = inspect.signature(theme.set).parameters
@@ -734,7 +692,7 @@ def render(case):
             f'</div>'
         )
 
-        parts.append('</div>') # End grid
+        parts.append('</div>')
 
         # Reference Context Citations
         sources = [r for r in REFERENCES if r["id"] in result["reference_ids"]]
@@ -820,23 +778,20 @@ def build_app(service):
             '</header>'
         )
 
-        # Metric & Workflow Bar
+        # Metric Strip
         gr.HTML(
-            '<div class="metrics-strip">'
-            '<div class="metric-item"><span class="metric-value">12</span><span class="metric-label">Orchard Blocks</span></div>'
-            '<div style="color:#cbd5e1;">│</div>'
-            '<div class="metric-item"><span class="metric-value">Qwen3-VL</span><span class="metric-label">Vision Model (4-Bit)</span></div>'
-            '<div style="color:#cbd5e1;">│</div>'
-            '<div class="metric-item"><span class="metric-value">0 Prescriptions</span><span class="metric-label">Safety Enforced</span></div>'
-            '<div style="color:#cbd5e1;">│</div>'
-            '<div class="metric-item"><span class="metric-value">ICAR Grounded</span><span class="metric-label">Agronomic Rules</span></div>'
+            '<div class="metrics-grid">'
+            '<div class="metric-card"><div class="metric-card-val">12</div><div class="metric-card-lbl">Orchard Blocks</div></div>'
+            '<div class="metric-card"><div class="metric-card-val">Qwen3-VL</div><div class="metric-card-lbl">Vision AI (4-Bit)</div></div>'
+            '<div class="metric-card"><div class="metric-card-val">0 Prescriptions</div><div class="metric-card-lbl">Safety Enforced</div></div>'
+            '<div class="metric-card"><div class="metric-card-val">ICAR Grounded</div><div class="metric-card-lbl">Agronomic Rules</div></div>'
             '</div>'
         )
 
         if os.environ.get("SCOUT_STORAGE_MODE") == "temporary":
             gr.HTML(
                 '<div id="storage-note">'
-                '<span>⚡</span> <b>Session-Only Cloud Sandbox</b> · Inspection reports are preserved for this active session. Permanent Drive sync disabled.'
+                '<span>⚡</span> <b>Session-Only Cloud Sandbox</b> · Inspection reports are preserved for this active session.'
                 '</div>'
             )
 
@@ -844,18 +799,14 @@ def build_app(service):
             current = gr.State("")
 
             # Quick Presets Bar
-            gr.HTML(
-                '<div class="preset-bar-wrapper">'
-                '<div class="preset-title">⚡ Quick Demo Presets (Click to auto-fill sample orchard issues):</div>'
-                '</div>'
-            )
+            gr.HTML('<div class="preset-bar-title">⚡ Quick Demo Presets (Click to auto-fill sample orchard issues):</div>')
             with gr.Row():
                 preset1_btn = gr.Button("🍃 Preset 1: Anthracnose Leaf Lesions", size="sm", variant="secondary")
                 preset2_btn = gr.Button("🥭 Preset 2: Fruit Fly Soft Spot", size="sm", variant="secondary")
                 preset3_btn = gr.Button("🌫️ Preset 3: Low-Light Blurry Canopy", size="sm", variant="secondary")
 
             with gr.Row():
-                with gr.Column(scale=4, min_width=320, elem_id="report-panel", variant="panel"):
+                with gr.Column(scale=4, min_width=300, elem_id="report-panel", variant="panel"):
                     gr.HTML(
                         '<div class="section-head">'
                         '<h3>📷 Field Evidence Capture</h3>'
@@ -869,7 +820,7 @@ def build_app(service):
                     send = gr.Button("⚡ Analyze Inspection with Vision AI →", variant="primary", size="lg")
                     gr.HTML('<p class="help-line">🔒 Evidence processed securely via Qwen3-VL on Colab runtime.</p>')
 
-                with gr.Column(scale=6, min_width=340, elem_id="brief-panel", variant="panel"):
+                with gr.Column(scale=6, min_width=320, elem_id="brief-panel", variant="panel"):
                     gr.HTML(
                         '<div class="section-head">'
                         '<h3>📊 AI Agronomic Inspection Brief</h3>'
@@ -893,7 +844,7 @@ def build_app(service):
             )
             manager_id = gr.State("")
             with gr.Row():
-                with gr.Column(scale=4, min_width=300, elem_id="library-panel", variant="panel"):
+                with gr.Column(scale=4, min_width=280, elem_id="library-panel", variant="panel"):
                     picker = gr.Dropdown(choices=choices(), label="Select Saved Case Record", info="Pick a case from the database to inspect details.")
                     with gr.Row():
                         refresh = gr.Button("🔄 Refresh List", size="sm")
@@ -902,7 +853,7 @@ def build_app(service):
                     reviewed = gr.Button("✅ Mark Case as Reviewed", variant="secondary")
                     gr.HTML('<p class="help-line">Auditing records records manager validation without replacing certified agronomic diagnosis.</p>')
 
-                with gr.Column(scale=6, min_width=340, elem_id="case-panel", variant="panel"):
+                with gr.Column(scale=6, min_width=320, elem_id="case-panel", variant="panel"):
                     manager_brief = gr.HTML(empty_brief("Select a Case Record", "Choose a case from the dropdown on the left and click 'Open Selected Case' to inspect."))
                     with gr.Accordion("💬 Append Evidence / Re-analyze Case", open=False):
                         manager_answer = gr.Textbox(label="Additional Evidence / Follow-up Notes", max_length=2000)
@@ -964,7 +915,7 @@ def build_app(service):
         update.click(follow, [current, answer], [brief, picker])
         refresh.click(lambda: gr.update(choices=choices()), outputs=picker)
         load.click(open_case, picker, [manager_id, manager_brief, manager_photo, record])
-        reviewed.click(review, manager_id, [manager_brief, record, picker])
+        reviewed.click(review, manager_id, [manager_id, record, picker])
         manager_retry.click(follow, [manager_id, manager_answer], [manager_brief, picker]).then(
             lambda case_id: service.store.get(case_id), manager_id, record
         )
@@ -983,7 +934,8 @@ def main():
         model.load()
     service = ScoutService(CaseStore(os.environ.get("SCOUT_DATA_DIR", "data/cases")), model)
     auth = None
-    if args.share:
+    # Require auth ONLY if explicitly specified in environment; by default, open directly for pitch demo!
+    if args.share and os.environ.get("SCOUT_REQUIRE_AUTH"):
         password = os.environ.get("SCOUT_PASSWORD") or secrets.token_urlsafe(12)
         print(f"Demo login: scout | Password: {password}", flush=True)
         auth = ("scout", password)
